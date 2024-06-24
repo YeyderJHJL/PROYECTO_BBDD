@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de Estado de Registro</title>
+</head>
+<body>
+    <h1>{{ estado.estregnom }}</h1>
+    <p>Código: {{ estado.estregcod }}</p>
+    <p>Estado de Registro: {{ estado.estregestreg }}</p>
+    <a href="{% url 'estado_registro_update' estado.pk %}">Editar</a>
+    <a href="{% url 'estado_registro_list' %}">Volver a la lista</a>
+</body>
+</html>

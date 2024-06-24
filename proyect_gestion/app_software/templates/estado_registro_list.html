@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Estados de Registro</title>
+</head>
+<body>
+    <h1>Estados de Registro</h1>
+    <a href="{% url 'estado_registro_create' %}">Nuevo Estado de Registro</a>
+    <ul>
+        {% for estado in estados %}
+        <li>
+            <a href="{% url 'estado_registro_detail' estado.pk %}">{{ estado.estregnom }}</a>
+            (<a href="{% url 'estado_registro_update' estado.pk %}">editar</a> /
+            <a href="{% url 'estado_registro_delete' estado.pk %}">eliminar</a>)
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

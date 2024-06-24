@@ -38,4 +38,4 @@ def estado_registro_delete(request, pk):
     if request.method == "POST":
         estado.delete()
         return redirect('estado_registro_list')
-    return render(request, 'estado_registro_confirm_delete.html', {'estado': estado})
+    return render(request, 'estado_registro_delete.html', {'estado': estado})

@@ -8,10 +8,6 @@ def estado_registro_list(request):
     estados = EstadoRegistro.objects.all()
     return render(request, 'estado_registro_list.html', {'estados': estados})
 
-def estado_registro_detail(request, pk):
-    estado = get_object_or_404(EstadoRegistro, pk=pk)
-    return render(request, 'estado_registro_detail.html', {'estado': estado})
-
 def estado_registro_create(request):
     if request.method == "POST":
         form = EstadoRegistroForm(request.POST)

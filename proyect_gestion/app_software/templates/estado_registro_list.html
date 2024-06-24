@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Estados de Registro</title>
-</head>
-<body>
-    <h1>Estados de Registro</h1>
-    <a href="{% url 'estado_registro_create' %}">Nuevo Estado de Registro</a>
-    <ul>
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Estados de Registro</h2>
+<a href="{% url 'estado_registro_create' %}" class="btn btn-primary mb-2">Crear Nuevo Estado</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Estado de Registro</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for estado in estados %}
-        <li>
-            <a href="{% url 'estado_registro_detail' estado.pk %}">{{ estado.estregnom }}</a>
-            (<a href="{% url 'estado_registro_update' estado.pk %}">editar</a> /
-            <a href="{% url 'estado_registro_delete' estado.pk %}">eliminar</a>)
-        </li>
+        <tr>
+            <td>{{ estado.estregcod }}</td>
+            <td>{{ estado.estregnom }}</td>
+            <td>{{ estado.estregestreg }}</td>
+            <td>
+                <a href="{% url 'estado_registro_update' estado.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'estado_registro_delete' estado.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </tbody>
+</table>
+{% endblock %}

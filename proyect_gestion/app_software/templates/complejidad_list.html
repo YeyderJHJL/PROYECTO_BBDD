@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Complejidades</h2>
+<a href="{% url 'complejidad_create' %}" class="btn btn-primary mb-2">Crear Nueva Complejidad</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Grado</th>
+            <th>Estado de Registro</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for complejidad in complejidades %}
+        <tr>
+            <td>{{ complejidad.comcod }}</td>
+            <td>{{ complejidad.comnom }}</td>
+            <td>{{ complejidad.comgra }}</td>
+            <td>{{ complejidad.estregcod }}</td>
+            <td>
+                <a href="{% url 'complejidad_update' complejidad.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'complejidad_delete' complejidad.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

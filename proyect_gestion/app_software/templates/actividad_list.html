@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Actividades</h2>
+<a href="{% url 'actividad_create' %}" class="btn btn-primary mb-2">Crear Nueva Actividad</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Tipo</th>
+            <th>Horas de Trabajo Diarias</th>
+            <th>Estado de Registro</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for actividad in actividades %}
+        <tr>
+            <td>{{ actividad.actcod }}</td>
+            <td>{{ actividad.actnom }}</td>
+            <td>{{ actividad.actfecini }}</td>
+            <td>{{ actividad.actfecfin }}</td>
+            <td>{{ actividad.acttip }}</td>
+            <td>{{ actividad.acthortradia }}</td>
+            <td>{{ actividad.estregcod }}</td>
+            <td>
+                <a href="{% url 'actividad_update' actividad.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'actividad_delete' actividad.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

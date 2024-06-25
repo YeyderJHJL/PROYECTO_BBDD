@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Estado de Cliente</h2>
+<form method="post" class="form">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.estclinom.label_tag }}
+        {{ form.estclinom }}
+    </div>
+    <div class="form-group">
+        {{ form.estcliestreg.label_tag }}
+        {{ form.estcliestreg }}
+    </div>
+    <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
+    <a href="{% url 'estado_cliente_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

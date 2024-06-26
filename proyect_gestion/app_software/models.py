@@ -13,7 +13,7 @@ class EstadoRegistro(models.Model): # listo
     def __str__(self):
         return self.estregnom
 
-class TipoCliente(models.Model):
+class TipoCliente(models.Model): # listo
     tipclicod = models.AutoField(db_column='TipCliCod', primary_key=True, verbose_name="Código")
     tipclinom = models.CharField(db_column='TipCliNom', max_length=60, verbose_name="Nombre")
     tipcliestreg = models.CharField(db_column='TipCliEstReg', max_length=20, blank=True, null=True, verbose_name="Estado de Registro")
@@ -26,7 +26,7 @@ class TipoCliente(models.Model):
     def __str__(self):
         return self.tipclinom
 
-class EstadoCliente(models.Model):
+class EstadoCliente(models.Model): # listo
     estclicod = models.AutoField(db_column='EstCliCod', primary_key=True, verbose_name="Código")
     estclinom = models.CharField(db_column='EstCliNom', max_length=60, verbose_name="Nombre")
     estcliestreg = models.CharField(db_column='EstCliEstReg', max_length=20, blank=True, null=True, verbose_name="Estado de Registro")
@@ -39,7 +39,7 @@ class EstadoCliente(models.Model):
     def __str__(self):
         return f"{self.estclinom}"
 
-class Cliente(models.Model): # listo
+class Cliente(models.Model):
     clidni = models.IntegerField(db_column='CliDni', primary_key=True, verbose_name="DNI")
     clinom = models.CharField(db_column='CliNom', max_length=100, verbose_name="Nombre")
     clifecing = models.DateField(db_column='CliFecIng', blank=True, null=True, verbose_name="Fecha de Ingreso")
@@ -70,7 +70,7 @@ class CargosPersonal(models.Model): # listo
     def __str__(self):
         return self.carpernom
 
-class Personal(models.Model):
+class Personal(models.Model): 
     percod = models.AutoField(db_column='PerCod', primary_key=True, verbose_name="Código")
     pernom = models.CharField(db_column='PerNom', max_length=60, verbose_name="Nombre")
     percarcoshor = models.DecimalField(db_column='PerCarCosHor', max_digits=10, decimal_places=2, blank=True, null=True, verbose_name="Costo por Hora")
@@ -99,7 +99,7 @@ class PersonalCargosPersonal(models.Model):
     def __str__(self):
         return f"{self.percod} - {self.carpercod}"
 
-class TipoProyecto(models.Model):
+class TipoProyecto(models.Model): # listo
     tipprocod = models.AutoField(db_column='TipProCod', primary_key=True, verbose_name="Código")
     tippronom = models.CharField(db_column='TipProNom', max_length=60, verbose_name="Nombre")
     estregcod = models.ForeignKey(EstadoRegistro, on_delete=models.PROTECT, db_column='EstRegCod', verbose_name="Estado de Registro")
@@ -112,7 +112,7 @@ class TipoProyecto(models.Model):
     def __str__(self):
         return self.tippronom
 
-class EstadoProyecto(models.Model):
+class EstadoProyecto(models.Model): # listo
     estprocod = models.AutoField(db_column='EstProCod', primary_key=True, verbose_name="Código")
     estpronom = models.CharField(db_column='EstProNom', max_length=60, verbose_name="Nombre")
     estregcod = models.ForeignKey(EstadoRegistro, on_delete=models.PROTECT, db_column='EstRegCod', verbose_name="Estado de Registro")
@@ -125,7 +125,7 @@ class EstadoProyecto(models.Model):
     def __str__(self):
         return self.estpronom
 
-class EtapasProyecto(models.Model):
+class EtapasProyecto(models.Model): # listo
     etaprocod = models.AutoField(db_column='EtaProCod', primary_key=True, verbose_name="Código")
     etapronom = models.CharField(db_column='EtaProNom', max_length=60, verbose_name="Nombre")
     etaprofecreg = models.DateTimeField(db_column='EtaProFecReg', blank=True, null=True, verbose_name="Fecha de Registro")

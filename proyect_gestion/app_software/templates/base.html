@@ -5,8 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Estado Registro</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffffff !important;
+        }
+        .navbar {
+            background-color: #44c270;
+        }
+        .nav-link {
+            color: #ffffff !important;
+            font-size: 1.1rem;
+        }
+        .nav-link:hover {
+            color: #d4d4d4 !important;
+        }
+        .container {
+            padding-top: 20px;
+        }
+        .nav-item {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'estado_registro_list' %}">Estado Registro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tipo_cliente_list' %}">Tipo Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'estado_cliente_list' %}">Estado Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tipo_proyecto_list' %}">Tipo Proyecto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'estado_proyecto_list' %}">Estado Proyecto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'etapas_proyecto_list' %}">Etapas Proyecto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'actividad_list' %}">Actividad</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'complejidad_list' %}">Complejidad</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cargos_proyecto_list' %}">Cargos Proyecto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cargos_personal_list' %}">Cargos Personal</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
         {% block content %}
         {% endblock %}

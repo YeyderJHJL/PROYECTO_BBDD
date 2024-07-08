@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.index, name='index'),
+    
     path('estado', views.estado_registro_list, name='estado_registro_list'),
     path('estado/new/', views.estado_registro_create, name='estado_registro_create'),
     path('estado/<int:pk>/edit/', views.estado_registro_update, name='estado_registro_update'),

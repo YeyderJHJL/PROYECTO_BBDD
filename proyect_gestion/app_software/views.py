@@ -6,6 +6,9 @@ from .models import *
 from .forms import *
 
 # Create your views here.
+def index(request):
+    return render(request, 'index.html')
+
 def estado_registro_list(request):
     estados = EstadoRegistro.objects.all()
     return render(request, 'estado_registro_list.html', {'estados': estados})

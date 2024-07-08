@@ -9,8 +9,8 @@
         {{ form.tipclinom }}
     </div>
     <div class="form-group">
-        {{ form.tipcliestreg.label_tag }}
-        {{ form.tipcliestreg }}
+        {{ form.estregcod.label_tag }}
+        {{ form.estregcod }}
     </div>
     <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
     <a href="{% url 'tipo_cliente_list' %}" class="btn btn-secondary">Cancelar</a>

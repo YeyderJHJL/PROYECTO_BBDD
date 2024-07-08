@@ -16,7 +16,7 @@ class EstadoRegistro(models.Model): # listo
 class TipoCliente(models.Model): # listo
     tipclicod = models.AutoField(db_column='TipCliCod', primary_key=True, verbose_name="Código")
     tipclinom = models.CharField(db_column='TipCliNom', max_length=60, verbose_name="Nombre")
-    tipcliestreg = models.CharField(db_column='TipCliEstReg', max_length=20, blank=True, null=True, verbose_name="Estado de Registro")
+    estregcod = models.ForeignKey(EstadoRegistro, on_delete=models.PROTECT, db_column='EstRegCod', verbose_name="Estado de Registro")
 
     class Meta:
         verbose_name = "Tipo de Cliente"
@@ -29,7 +29,7 @@ class TipoCliente(models.Model): # listo
 class EstadoCliente(models.Model): # listo
     estclicod = models.AutoField(db_column='EstCliCod', primary_key=True, verbose_name="Código")
     estclinom = models.CharField(db_column='EstCliNom', max_length=60, verbose_name="Nombre")
-    estcliestreg = models.CharField(db_column='EstCliEstReg', max_length=20, blank=True, null=True, verbose_name="Estado de Registro")
+    estregcod = models.ForeignKey(EstadoRegistro, on_delete=models.PROTECT, db_column='EstRegCod', verbose_name="Estado de Registro")
 
     class Meta:
         verbose_name = "Estado de Cliente"

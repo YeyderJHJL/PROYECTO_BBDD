@@ -13,19 +13,19 @@ class EstadoRegistroForm(forms.ModelForm):
 class TipoClienteForm(forms.ModelForm):
     class Meta:
         model = TipoCliente
-        fields = ['tipclinom', 'tipcliestreg']
+        fields = ['tipclinom', 'estregcod']
         widgets = {
             'tipclinom': forms.TextInput(attrs={'class': 'form-control'}),
-            'tipcliestreg': forms.TextInput(attrs={'class': 'form-control'}),
+            'estregcod': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class EstadoClienteForm(forms.ModelForm):
     class Meta:
         model = EstadoCliente
-        fields = ['estclinom', 'estcliestreg']
+        fields = ['estclinom', 'estregcod']
         widgets = {
             'estclinom': forms.TextInput(attrs={'class': 'form-control'}),
-            'estcliestreg': forms.TextInput(attrs={'class': 'form-control'}),
+            'estregcod': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class TipoProyectoForm(forms.ModelForm):

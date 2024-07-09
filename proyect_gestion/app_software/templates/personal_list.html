@@ -16,7 +16,10 @@
     </thead>
     <tbody>
         {% for persona in personal %}
-        <tr>
+        <tr {% if persona.estregcod.estregestreg == 'A' %}class="table-success"
+            {% elif persona.estregcod.estregestreg == 'I' %}class="table-warning"
+            {% elif persona.estregcod.estregestreg == 'E' %}class="table-danger"
+            {% endif %}>
             <td>{{ persona.percod }}</td>
             <td>{{ persona.pernom }}</td>
             <td>{{ persona.percarcoshor }}</td>

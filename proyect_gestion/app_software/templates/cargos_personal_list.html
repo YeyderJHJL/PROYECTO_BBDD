@@ -14,7 +14,10 @@
     </thead>
     <tbody>
         {% for cargo in cargos %}
-        <tr>
+        <tr {% if cargo.estregcod.estregestreg == 'A' %}class="table-success"
+            {% elif cargo.estregcod.estregestreg == 'I' %}class="table-warning"
+            {% elif cargo.estregcod.estregestreg == 'E' %}class="table-danger"
+            {% endif %}>
             <td>{{ cargo.carpercod }}</td>
             <td>{{ cargo.carpernom }}</td>
             <td>{{ cargo.estregcod }}</td>

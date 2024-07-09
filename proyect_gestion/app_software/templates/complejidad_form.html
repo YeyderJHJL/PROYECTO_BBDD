@@ -16,6 +16,10 @@
         {{ form.estregcod.label_tag }}
         {{ form.estregcod }}
     </div>
+    <div class="form-group">
+        <label for="id_actividad">Actividad (Opcional)</label>
+        {{ form.actividad }}
+    </div>
     <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
     <a href="{% url 'complejidad_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>

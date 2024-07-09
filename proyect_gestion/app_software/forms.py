@@ -218,3 +218,30 @@ class ProyectoForm(forms.ModelForm):
             'proetaprocod': forms.Select(attrs={'class': 'form-control'}),
             'protipprocod': forms.Select(attrs={'class': 'form-control'}),
         }
+
+class ActividadForm(forms.ModelForm):
+    complejidad = forms.ModelChoiceField(queryset=Complejidad.objects.all(), required=False, label="Complejidad")
+
+    class Meta:
+        model = Actividad
+        fields = ['actnom', 'actfecini', 'actfecfin', 'acttip', 'acthortradia', 'estregcod']
+    widgets = {
+        'actnom': forms.TextInput(attrs={'class': 'form-control'}),
+        'actfecini': forms.DateTimeInput(attrs={'class': 'form-control'}),
+        'actfecfin': forms.DateTimeInput(attrs={'class': 'form-control'}),
+        'acttip': forms.TextInput(attrs={'class': 'form-control'}),
+        'acthortradia': forms.TimeInput(attrs={'class': 'form-control'}),
+        'estregcod': forms.Select(attrs={'class': 'form-control'}),
+    }
+
+class ComplejidadForm(forms.ModelForm):
+    actividad = forms.ModelChoiceField(queryset=Actividad.objects.all(), required=False, label="Actividad")
+
+    class Meta:
+        model = Complejidad
+        fields = ['comnom', 'comgra', 'estregcod']
+    widgets = {
+            'comnom': forms.TextInput(attrs={'class': 'form-control'}),
+            'comgra': forms.NumberInput(attrs={'class': 'form-control'}),
+            'estregcod': forms.Select(attrs={'class': 'form-control'}),
+        }

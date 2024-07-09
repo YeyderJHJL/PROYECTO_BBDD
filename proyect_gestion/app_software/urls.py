@@ -54,10 +54,10 @@ urlpatterns = [
     path('cargos_personal/<int:pk>/edit/', views.cargos_personal_update, name='cargos_personal_update'),
     path('cargos_personal/<int:pk>/delete/', views.cargos_personal_delete, name='cargos_personal_delete'),
 
-    path('clientes/', views.cliente_list, name='cliente_list'),
-    path('clientes/new/', views.cliente_create, name='cliente_create'),
-    path('clientes/<int:pk>/edit/', views.cliente_update, name='cliente_update'),
-    path('clientes/<int:pk>/delete/', views.cliente_delete, name='cliente_delete'),
+    path('cliente', views.cliente_list, name='cliente_list'),
+    path('cliente/new/', views.cliente_create, name='cliente_create'),
+    path('cliente/<int:pk>/edit/', views.cliente_update, name='cliente_update'),
+    path('cliente/<int:pk>/delete/', views.cliente_delete, name='cliente_delete'),
 
     path('actividades_complejidad', views.actividades_complejidad_list, name='actividades_complejidad_list'),
     path('actividades_complejidad/new/', views.actividades_complejidad_create, name='actividades_complejidad_create'),
@@ -104,4 +104,13 @@ urlpatterns = [
     path('proyecto/<int:pk>/edit/', views.proyecto_update, name='proyecto_update'),
     path('proyecto/<int:pk>/delete/', views.proyecto_delete, name='proyecto_delete'),
 
+    
+    path('actividades/', views.actividad_list, name='actividad_list'),
+    path('actividades/new/', views.actividad_create, name='actividad_create'),
+    path('actividades/<int:pk>/edit/', views.actividad_update, name='actividad_update'),
+    path('actividades/<int:pk>/delete/', views.actividad_delete, name='actividad_delete'),
+    
+    path('complejidades/new/', views.complejidad_create, name='complejidad_create'),
+    path('complejidades/<int:pk>/edit/', views.complejidad_update, name='complejidad_update'),
+    path('complejidades/<int:pk>/delete/', views.complejidad_delete, name='complejidad_delete'),
 ]

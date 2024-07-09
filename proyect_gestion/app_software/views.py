@@ -95,7 +95,6 @@ def tipo_cliente_delete(request, pk):
             return render(request, 'tipo_cliente_delete.html', {'tipo': tipo, 'related_details': related_details})
     else:
         return render(request, 'tipo_cliente_delete.html', {'tipo': tipo})
-    
 def estado_cliente_list(request):
     estados = EstadoCliente.objects.all()
     return render(request, 'estado_cliente_list.html', {'estados': estados})
@@ -392,7 +391,7 @@ def cliente_update(request, pk):
 
 def cliente_delete(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
-        
+    
     if request.method == "POST":
         try:
             cliente.delete()
@@ -402,8 +401,8 @@ def cliente_delete(request, pk):
             related_objects = e.protected_objects
             related_details = []
             for obj in related_objects:
-                model_name = obj._meta.verbose_name
-                obj_name = str(obj)
+                model_name = obj._meta.verbose_name  
+                obj_name = str(obj)  
                 related_details.append(f"{obj_name} (En la tabla: {model_name})")
             messages.error(request, "No se puede eliminar este cliente porque está relacionado con otros registros.")
             return render(request, 'cliente_delete.html', {'cliente': cliente, 'related_details': related_details})
@@ -706,3 +705,72 @@ def proyecto_delete(request, pk):
         proyecto.delete()
         return redirect('proyecto_list')
     return render(request, 'proyecto_delete.html', {'proyecto': proyecto})
+
+def actividad_list(request):
+    actividades = Actividad.objects.all()
+    complejidades = Complejidad.objects.all()
+    return render(request, 'actividad_list.html', {'actividades': actividades, 'complejidades': complejidades})
+
+def actividad_create(request):
+    if request.method == 'POST':
+        form = ActividadForm(request.POST)
+        if form.is_valid():
+            actividad = form.save()
+            if form.cleaned_data['complejidad']:
+                ActividadesComplejidad.objects.create(actcod=actividad, comcod=form.cleaned_data['complejidad'])
+            return redirect('actividad_list')
+    else:
+        form = ActividadForm()
+    return render(request, 'actividad_form.html', {'form': form})
+
+def actividad_update(request, pk):
+    actividad = get_object_or_404(Actividad, pk=pk)
+    if request.method == 'POST':
+        form = ActividadForm(request.POST, instance=actividad)
+        if form.is_valid():
+            actividad = form.save()
+            if form.cleaned_data['complejidad']:
+                ActividadesComplejidad.objects.update_or_create(actcod=actividad, defaults={'comcod': form.cleaned_data['complejidad']})
+            return redirect('actividad_list')
+    else:
+        form = ActividadForm(instance=actividad)
+    return render(request, 'actividad_form.html', {'form': form})
+
+def actividad_delete(request, pk):
+    actividad = get_object_or_404(Actividad, pk=pk)
+    if request.method == 'POST':
+        actividad.delete()
+        return redirect('actividad_list')
+    return render(request, 'actividad_delete.html', {'actividad': actividad})
+
+def complejidad_create(request):
+    if request.method == 'POST':
+        form = ComplejidadForm(request.POST)
+        if form.is_valid():
+            complejidad = form.save()
+            if form.cleaned_data['actividad']:
+                ActividadesComplejidad.objects.create(comcod=complejidad, actcod=form.cleaned_data['actividad'])
+            return redirect('actividad_list')
+    else:
+        form = ComplejidadForm()
+    return render(request, 'complejidad_form.html', {'form': form})
+
+def complejidad_update(request, pk):
+    complejidad = get_object_or_404(Complejidad, pk=pk)
+    if request.method == 'POST':
+        form = ComplejidadForm(request.POST, instance=complejidad)
+        if form.is_valid():
+            complejidad = form.save()
+            if form.cleaned_data['actividad']:
+                ActividadesComplejidad.objects.update_or_create(comcod=complejidad, defaults={'actcod': form.cleaned_data['actividad']})
+            return redirect('actividad_list')
+    else:
+        form = ComplejidadForm(instance=complejidad)
+    return render(request, 'complejidad_form.html', {'form': form})
+
+def complejidad_delete(request, pk):
+    complejidad = get_object_or_404(Complejidad, pk=pk)
+    if request.method == 'POST':
+        complejidad.delete()
+        return redirect('actividad_list')
+    return render(request, 'complejidad_delete.html', {'complejidad': complejidad})

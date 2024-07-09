@@ -95,6 +95,7 @@ def tipo_cliente_delete(request, pk):
             return render(request, 'tipo_cliente_delete.html', {'tipo': tipo, 'related_details': related_details})
     else:
         return render(request, 'tipo_cliente_delete.html', {'tipo': tipo})
+    
 def estado_cliente_list(request):
     estados = EstadoCliente.objects.all()
     return render(request, 'estado_cliente_list.html', {'estados': estados})
@@ -391,7 +392,7 @@ def cliente_update(request, pk):
 
 def cliente_delete(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
-    
+        
     if request.method == "POST":
         try:
             cliente.delete()
@@ -401,8 +402,8 @@ def cliente_delete(request, pk):
             related_objects = e.protected_objects
             related_details = []
             for obj in related_objects:
-                model_name = obj._meta.verbose_name  
-                obj_name = str(obj)  
+                model_name = obj._meta.verbose_name
+                obj_name = str(obj)
                 related_details.append(f"{obj_name} (En la tabla: {model_name})")
             messages.error(request, "No se puede eliminar este cliente porque está relacionado con otros registros.")
             return render(request, 'cliente_delete.html', {'cliente': cliente, 'related_details': related_details})

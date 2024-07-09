@@ -52,14 +52,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'estado_registro_list' %}">Estado Registro</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'cliente_list' %}">Clientes</a>
-                </li>  
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tipo_cliente_list' %}">Tipo Cliente</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'estado_cliente_list' %}">Estado Cliente</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Clientes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="clientesDropdown">
+                        <a class="dropdown-item" href="{% url 'cliente_list' %}">Cliente</a>
+                        <a class="dropdown-item" href="{% url 'tipo_cliente_list' %}"> - Tipo Cliente</a>
+                        <a class="dropdown-item" href="{% url 'estado_cliente_list' %}"> - Estado Cliente</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'tipo_proyecto_list' %}">Tipo Proyecto</a>

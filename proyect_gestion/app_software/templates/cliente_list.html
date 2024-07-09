@@ -20,18 +20,14 @@
         <tbody>
             {% for cliente in clientes %}
                 <tr>
-                    {% if cliente.regestcod.estregestreg == 'A' %}class="table-success"
-                    {% elif cliente.regestcod.estregestreg == 'I' %}class="table-warning"
-                    {% elif cliente.regestcod.estregestreg == 'E' %}class="table-danger"
-                    {% endif %}
                     <td>{{ cliente.clidni }}</td>
                     <td>{{ cliente.clinom }}</td>
                     <td>{{ cliente.clifecing }}</td>
                     <td>{{ cliente.clifecces }}</td>
                     <td>{{ cliente.clifecultprocer }}</td>
-                    <td>{{ cliente.clitipcod }}</td>
-                    <td>{{ cliente.cliestcod }}</td>
-                    <td>{{ cliente.regestcod }}</td>
+                    <td>{{ cliente.clitipcod.tipclinom }}</td>
+                    <td>{{ cliente.cliestcod.estclinom }}</td>
+                    <td>{{ cliente.regestcod.estregnom }}</td>
                     <td>
                         <a href="{% url 'cliente_update' cliente.pk %}" class="btn btn-warning btn-sm">Editar</a>
                         <a href="{% url 'cliente_delete' cliente.pk %}" class="btn btn-danger btn-sm">Eliminar</a>

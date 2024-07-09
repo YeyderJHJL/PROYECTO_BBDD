@@ -28,6 +28,17 @@
         }
         .nav-item {
             margin-right: 10px;
+
+         /* Estilos para las filas de la tabla según el estado de registro */
+        .table-success {
+            background-color: #2bf060; /* Verde para estados activos */
+        }
+        .table-warning {
+            background-color: #e0ed2d; /* Amarillo para estados inactivos */
+        }
+        .table-danger {
+            background-color: #eb5957; /* Rojo para estados eliminados */
+        }
         }
     </style>
 </head>
@@ -41,6 +52,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'estado_registro_list' %}">Estado Registro</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cliente_list' %}">Clientes</a>
+                </li>  
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'tipo_cliente_list' %}">Tipo Cliente</a>
                 </li>
@@ -68,6 +82,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'cargos_personal_list' %}">Cargos Personal</a>
                 </li>
+                             
             </ul>
         </div>
     </nav>

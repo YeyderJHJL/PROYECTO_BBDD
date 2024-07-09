@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de Clientes</h2>
+    <a href="{% url 'cliente_create' %}" class="btn btn-primary mb-2">Crear Nuevo Cliente</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Fecha de Ingreso</th>
+                <th>Fecha de Cese</th>
+                <th>Fecha Último Proyecto Cerrado</th>
+                <th>Tipo de Cliente</th>
+                <th>Estado de Cliente</th>
+                <th>Estado de Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+                <tr>
+                    {% if cliente.regestcod.estregestreg == 'A' %}class="table-success"
+                    {% elif cliente.regestcod.estregestreg == 'I' %}class="table-warning"
+                    {% elif cliente.regestcod.estregestreg == 'E' %}class="table-danger"
+                    {% endif %}
+                    <td>{{ cliente.clidni }}</td>
+                    <td>{{ cliente.clinom }}</td>
+                    <td>{{ cliente.clifecing }}</td>
+                    <td>{{ cliente.clifecces }}</td>
+                    <td>{{ cliente.clifecultprocer }}</td>
+                    <td>{{ cliente.clitipcod }}</td>
+                    <td>{{ cliente.cliestcod }}</td>
+                    <td>{{ cliente.regestcod }}</td>
+                    <td>
+                        <a href="{% url 'cliente_update' cliente.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'cliente_delete' cliente.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

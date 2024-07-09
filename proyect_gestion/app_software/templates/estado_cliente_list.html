@@ -1,29 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Lista de Estados de Cliente</h2>
-<a href="{% url 'estado_cliente_create' %}" class="btn btn-primary mb-2">Crear Nuevo Estado de Cliente</a>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Estado de Registro</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for estado in estados %}
-        <tr>
-            <td>{{ estado.estclicod }}</td>
-            <td>{{ estado.estclinom }}</td>
-            <td>{{ estado.estregcod }}</td>
-            <td>
-                <a href="{% url 'estado_cliente_update' estado.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'estado_cliente_delete' estado.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <h2>Lista de Estados de Cliente</h2>
+    <a href="{% url 'estado_cliente_create' %}" class="btn btn-primary mb-2">Crear Nuevo Estado de Cliente</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Estado de Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for estado in estados %}
+                <tr {% if estado.estregcod.estregestreg == 'A' %}class="table-success"
+                    {% elif estado.estregcod.estregestreg == 'I' %}class="table-warning"
+                    {% elif estado.estregcod.estregestreg == 'E' %}class="table-danger"
+                    {% endif %}>
+                    <td>{{ estado.estclicod }}</td>
+                    <td>{{ estado.estclinom }}</td>
+                    <td>{{ estado.estregcod.estregestreg }}</td>
+                    <td>
+                        <a href="{% url 'estado_cliente_update' estado.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'estado_cliente_delete' estado.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

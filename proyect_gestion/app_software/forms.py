@@ -99,3 +99,18 @@ class CargosPersonalForm(forms.ModelForm):
             'carpernom': forms.TextInput(attrs={'class': 'form-control'}),
             'estregcod': forms.Select(attrs={'class': 'form-control'}),
         }
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ['clidni', 'clinom', 'clifecing', 'clifecces', 'clifecultprocer', 'clitipcod', 'cliestcod', 'regestcod']
+        widgets = {
+            'clidni': forms.NumberInput(attrs={'class': 'form-control'}),
+            'clinom': forms.TextInput(attrs={'class': 'form-control'}),
+            'clifecing': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'clifecces': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'clifecultprocer': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'clitipcod': forms.Select(attrs={'class': 'form-control'}),
+            'cliestcod': forms.Select(attrs={'class': 'form-control'}),
+            'regestcod': forms.Select(attrs={'class': 'form-control'}),
+        }

@@ -1,9 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import EstadoRegistro
-from .forms import EstadoRegistroForm
-
 from .models import *
 from .forms import *
+from django.db.models import ProtectedError
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -37,10 +36,21 @@ def estado_registro_update(request, pk):
 def estado_registro_delete(request, pk):
     estado = get_object_or_404(EstadoRegistro, pk=pk)
     if request.method == "POST":
-        estado.delete()
-        return redirect('estado_registro_list')
-    return render(request, 'estado_registro_delete.html', {'estado': estado})
-
+        try:
+            estado.delete()
+            messages.success(request, "Estado de registro eliminado correctamente.")
+            return redirect('estado_registro_list')
+        except ProtectedError as e:
+            related_objects = e.protected_objects
+            related_details = []
+            for obj in related_objects:
+                model_name = obj._meta.verbose_name  
+                obj_name = str(obj)  
+                related_details.append(f"{obj_name} (En la tabla: {model_name})")
+            messages.error(request, "No se puede eliminar este estado de registro porque está relacionado con otros registros.")
+            return render(request, 'estado_registro_delete.html', {'estado': estado, 'related_details': related_details})
+    else:
+        return render(request, 'estado_registro_delete.html', {'estado': estado})
 
 def tipo_cliente_list(request):
     tipos = TipoCliente.objects.all()
@@ -70,10 +80,21 @@ def tipo_cliente_update(request, pk):
 def tipo_cliente_delete(request, pk):
     tipo = get_object_or_404(TipoCliente, pk=pk)
     if request.method == "POST":
-        tipo.delete()
-        return redirect('tipo_cliente_list')
-    return render(request, 'tipo_cliente_delete.html', {'tipo': tipo})
-
+        try:
+            tipo.delete()
+            messages.success(request, "Tipo de cliente eliminado correctamente.")
+            return redirect('tipo_cliente_list')
+        except ProtectedError as e:
+            related_objects = e.protected_objects
+            related_details = []
+            for obj in related_objects:
+                model_name = obj._meta.verbose_name  
+                obj_name = str(obj)  
+                related_details.append(f"{obj_name} (En la tabla: {model_name})")
+            messages.error(request, "No se puede eliminar este tipo de cliente porque está relacionado con otros registros.")
+            return render(request, 'tipo_cliente_delete.html', {'tipo': tipo, 'related_details': related_details})
+    else:
+        return render(request, 'tipo_cliente_delete.html', {'tipo': tipo})
 def estado_cliente_list(request):
     estados = EstadoCliente.objects.all()
     return render(request, 'estado_cliente_list.html', {'estados': estados})
@@ -102,9 +123,22 @@ def estado_cliente_update(request, pk):
 def estado_cliente_delete(request, pk):
     estado = get_object_or_404(EstadoCliente, pk=pk)
     if request.method == "POST":
-        estado.delete()
-        return redirect('estado_cliente_list')
-    return render(request, 'estado_cliente_delete.html', {'estado': estado})
+        try:
+            estado.delete()
+            messages.success(request, "Estado de cliente eliminado correctamente.")
+            return redirect('estado_cliente_list')
+        except ProtectedError as e:
+            related_objects = e.protected_objects
+            related_details = []
+            for obj in related_objects:
+                model_name = obj._meta.verbose_name  
+                obj_name = str(obj)  
+                related_details.append(f"{obj_name} (En la tabla: {model_name})")
+            messages.error(request, "No se puede eliminar este estado de cliente porque está relacionado con otros registros.")
+            return render(request, 'estado_cliente_delete.html', {'estado': estado, 'related_details': related_details})
+    else:
+        return render(request, 'estado_cliente_delete.html', {'estado': estado})
+
 
 def tipo_proyecto_list(request):
     tipos = TipoProyecto.objects.all()
@@ -329,3 +363,48 @@ def cargos_personal_delete(request, pk):
         cargo.delete()
         return redirect('cargos_personal_list')
     return render(request, 'cargos_personal_delete.html', {'cargo': cargo})
+
+def cliente_list(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'cliente_list.html', {'clientes': clientes})
+
+def cliente_create(request):
+    if request.method == "POST":
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cliente_list')
+    else:
+        form = ClienteForm()
+    return render(request, 'cliente_form.html', {'form': form})
+
+def cliente_update(request, pk):
+    cliente = get_object_or_404(Cliente, pk=pk)
+    if request.method == "POST":
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('cliente_list')
+    else:
+        form = ClienteForm(instance=cliente)
+    return render(request, 'cliente_form.html', {'form': form})
+
+def cliente_delete(request, pk):
+    cliente = get_object_or_404(Cliente, pk=pk)
+    
+    if request.method == "POST":
+        try:
+            cliente.delete()
+            messages.success(request, "Cliente eliminado correctamente.")
+            return redirect('cliente_list')
+        except ProtectedError as e:
+            related_objects = e.protected_objects
+            related_details = []
+            for obj in related_objects:
+                model_name = obj._meta.verbose_name  
+                obj_name = str(obj)  
+                related_details.append(f"{obj_name} (En la tabla: {model_name})")
+            messages.error(request, "No se puede eliminar este cliente porque está relacionado con otros registros.")
+            return render(request, 'cliente_delete.html', {'cliente': cliente, 'related_details': related_details})
+    else:
+        return render(request, 'cliente_delete.html', {'cliente': cliente})

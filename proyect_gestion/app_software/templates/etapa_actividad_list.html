@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Etapas de Actividad</h2>
+<a href="{% url 'etapa_actividad_create' %}" class="btn btn-primary mb-2">Crear Nueva Etapa de Actividad</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Actividad</th>
+            <th>Etapa de Proyecto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for etapa in etapas_actividad %}
+        <tr>
+            <td>{{ etapa.etaactcod }}</td>
+            <td>{{ etapa.actcod }}</td>
+            <td>{{ etapa.etaprocod }}</td>
+            <td>
+                <a href="{% url 'etapa_actividad_update' etapa.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'etapa_actividad_delete' etapa.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

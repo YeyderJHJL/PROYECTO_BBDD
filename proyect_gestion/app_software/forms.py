@@ -114,3 +114,107 @@ class ClienteForm(forms.ModelForm):
             'cliestcod': forms.Select(attrs={'class': 'form-control'}),
             'regestcod': forms.Select(attrs={'class': 'form-control'}),
         }
+
+class ActividadesComplejidadForm(forms.ModelForm):
+    class Meta:
+        model = ActividadesComplejidad
+        fields = ['actcod', 'comcod']
+        widgets = {
+            'actcod': forms.Select(attrs={'class': 'form-control'}),
+            'comcod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class EtapaActividadForm(forms.ModelForm):
+    class Meta:
+        model = EtapaActividad
+        fields = ['actcod', 'etaprocod']
+        widgets = {
+            'actcod': forms.Select(attrs={'class': 'form-control'}),
+            'etaprocod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class IncidenciaPersonalForm(forms.ModelForm):
+    class Meta:
+        model = IncidenciaPersonal
+        fields = ['inccod', 'percod']
+        widgets = {
+            'inccod': forms.Select(attrs={'class': 'form-control'}),
+            'percod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class IncidenciasForm(forms.ModelForm):
+    class Meta:
+        model = Incidencias
+        fields = ['incfecini', 'incnom', 'incfecfin', 'incdes', 'actcod']
+        widgets = {
+            'incfecini': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'incnom': forms.TextInput(attrs={'class': 'form-control'}),
+            'incfecfin': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'incdes': forms.Textarea(attrs={'class': 'form-control'}),
+            'actcod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class PersonalForm(forms.ModelForm):
+    class Meta:
+        model = Personal
+        fields = ['pernom', 'percarcoshor', 'perfecing', 'estregcod']
+        widgets = {
+            'pernom': forms.TextInput(attrs={'class': 'form-control'}),
+            'percarcoshor': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'perfecing': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'estregcod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class PersonalActividadForm(forms.ModelForm):
+    class Meta:
+        model = PersonalActividad
+        fields = ['actcod', 'percod']
+        widgets = {
+            'actcod': forms.Select(attrs={'class': 'form-control'}),
+            'percod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class PersonalCargosPersonalForm(forms.ModelForm):
+    class Meta:
+        model = PersonalCargosPersonal
+        fields = ['percoshorcar', 'carpercod', 'percod']
+        widgets = {
+            'percoshorcar': forms.NumberInput(attrs={'class': 'form-control'}),
+            'carpercod': forms.Select(attrs={'class': 'form-control'}),
+            'percod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class PersonalCargosProyectoForm(forms.ModelForm):
+    class Meta:
+        model = PersonalCargosProyecto
+        fields = ['carprocod', 'percod']
+        widgets = {
+            'carprocod': forms.Select(attrs={'class': 'form-control'}),
+            'percod': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class ProyectoForm(forms.ModelForm):
+    class Meta:
+        model = Proyecto
+        fields = ['profecprocon', 'profecpropac', 'profecproini', 'profecproent', 'profecprocie', 'promonpro', 'promonprorea', 'promonprocos', 'promonprocosrea', 'promonprogas', 'promonprogasrea', 'promonprouti', 'promonproutirea', 'clicod', 'estregcod', 'proestprocod', 'proetaprocod', 'protipprocod']
+        widgets = {
+            'profecprocon': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecpropac': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecproini': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecproent': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecprocie': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'promonpro': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprorea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprocos': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprocosrea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprogas': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprogasrea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprouti': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonproutirea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'clicod': forms.Select(attrs={'class': 'form-control'}),
+            'estregcod': forms.Select(attrs={'class': 'form-control'}),
+            'proestprocod': forms.Select(attrs={'class': 'form-control'}),
+            'proetaprocod': forms.Select(attrs={'class': 'form-control'}),
+            'protipprocod': forms.Select(attrs={'class': 'form-control'}),
+        }

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Actividades por Complejidad</h2>
+<a href="{% url 'actividades_complejidad_create' %}" class="btn btn-primary mb-2">Crear Nueva Actividad por Complejidad</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Actividad</th>
+            <th>Complejidad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for act_comp in actividades_complejidad %}
+        <tr>
+            <td>{{ act_comp.actcomcod }}</td>
+            <td>{{ act_comp.actcod }}</td>
+            <td>{{ act_comp.comcod }}</td>
+            <td>
+                <a href="{% url 'actividades_complejidad_update' act_comp.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'actividades_complejidad_delete' act_comp.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

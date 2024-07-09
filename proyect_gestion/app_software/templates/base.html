@@ -58,6 +58,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="clientesDropdown">
                         <a class="dropdown-item" href="{% url 'cliente_list' %}">Cliente</a>
+                        <a class="dropdown-item" href="{% url 'tipo_cliente_list' %}"> - Tipo Cliente</a>
                         <a class="dropdown-item" href="{% url 'estado_cliente_list' %}"> - Estado Cliente</a>
                     </div>
                 </li>
@@ -67,7 +68,6 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="clientesDropdown">
                         <a class="dropdown-item" href="{% url 'personal_list' %}">Personal</a>
-                        <a class="dropdown-item" href="{% url 'tipo_cliente_list' %}"> - Tipo Cliente</a>
                         <a class="dropdown-item" href="{% url 'cargos_personal_list' %}"> - Cargos Personal</a>
                     </div>
                 </li>    

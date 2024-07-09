@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Proyectos</h2>
+<a href="{% url 'proyecto_create' %}" class="btn btn-primary mb-2">Crear Nuevo Proyecto</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Fecha Propuesta Contrato</th>
+            <th>Fecha Propuesta Pactada</th>
+            <th>Fecha Propuesta Inicio</th>
+            <th>Fecha Propuesta Entrega</th>
+            <th>Fecha Propuesta Cierre</th>
+            <th>Monto Propuesto</th>
+            <th>Cliente</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proyecto in proyectos %}
+        <tr>
+            <td>{{ proyecto.prosec }}</td>
+            <td>{{ proyecto.profecprocon }}</td>
+            <td>{{ proyecto.profecpropac }}</td>
+            <td>{{ proyecto.profecproini }}</td>
+            <td>{{ proyecto.profecproent }}</td>
+            <td>{{ proyecto.profecprocie }}</td>
+            <td>{{ proyecto.promonpro }}</td>
+            <td>{{ proyecto.clicod }}</td>
+            <td>{{ proyecto.proestprocod }}</td>
+            <td>
+                <a href="{% url 'proyecto_update' proyecto.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'proyecto_delete' proyecto.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Incidencias</h2>
+<a href="{% url 'incidencias_create' %}" class="btn btn-primary mb-2">Crear Nueva Incidencia</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Fecha de Inicio</th>
+            <th>Nombre</th>
+            <th>Fecha de Fin</th>
+            <th>Descripción</th>
+            <th>Actividad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for incidencia in incidencias %}
+        <tr>
+            <td>{{ incidencia.inccod }}</td>
+            <td>{{ incidencia.incfecini }}</td>
+            <td>{{ incidencia.incnom }}</td>
+            <td>{{ incidencia.incfecfin }}</td>
+            <td>{{ incidencia.incdes }}</td>
+            <td>{{ incidencia.actcod }}</td>
+            <td>
+                <a href="{% url 'incidencias_update' incidencia.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'incidencias_delete' incidencia.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

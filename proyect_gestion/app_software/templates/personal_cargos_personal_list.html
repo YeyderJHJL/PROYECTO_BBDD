@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Cargos de Personal</h2>
+<a href="{% url 'personal_cargos_personal_create' %}" class="btn btn-primary mb-2">Asignar Cargo a Personal</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Costo por Hora del Cargo</th>
+            <th>Cargo</th>
+            <th>Personal</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for per_car in personal_cargos %}
+        <tr>
+            <td>{{ per_car.percarpercod }}</td>
+            <td>{{ per_car.percoshorcar }}</td>
+            <td>{{ per_car.carpercod }}</td>
+            <td>{{ per_car.percod }}</td>
+            <td>
+                <a href="{% url 'personal_cargos_personal_update' per_car.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'personal_cargos_personal_delete' per_car.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

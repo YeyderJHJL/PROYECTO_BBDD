@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Proyecto</h2>
+<form method="post" class="form">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.profecprocon.label_tag }}
+        {{ form.profecprocon }}
+    </div>
+    <div class="form-group">
+        {{ form.profecpropac.label_tag }}
+        {{ form.profecpropac }}
+    </div>
+    <div class="form-group">
+        {{ form.profecproini.label_tag }}
+        {{ form.profecproini }}
+    </div>
+    <div class="form-group">
+        {{ form.profecproent.label_tag }}
+        {{ form.profecproent }}
+    </div>
+    <div class="form-group">
+        {{ form.profecprocie.label_tag }}
+        {{ form.profecprocie }}
+    </div>
+    <div class="form-group">
+        {{ form.promonpro.label_tag }}
+        {{ form.promonpro }}
+    </div>
+    <div class="form-group">
+        {{ form.clicod.label_tag }}
+        {{ form.clicod }}
+    </div>
+    <div class="form-group">
+        {{ form.estregcod.label_tag }}
+        {{ form.estregcod }}
+    </div>
+    <div class="form-group">
+        {{ form.proestprocod.label_tag }}
+        {{ form.proestprocod }}
+    </div>
+    <div class="form-group">
+        {{ form.proetaprocod.label_tag }}
+        {{ form.proetaprocod }}
+    </div>
+    <div class="form-group">
+        {{ form.protipprocod.label_tag }}
+        {{ form.protipprocod }}
+    </div>
+    <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
+    <a href="{% url 'proyecto_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

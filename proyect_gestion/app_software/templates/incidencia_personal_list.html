@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Incidencias de Personal</h2>
+<a href="{% url 'incidencia_personal_create' %}" class="btn btn-primary mb-2">Crear Nueva Incidencia de Personal</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Incidencia</th>
+            <th>Personal</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inc_per in incidencias_personal %}
+        <tr>
+            <td>{{ inc_per.incpercod }}</td>
+            <td>{{ inc_per.inccod }}</td>
+            <td>{{ inc_per.percod }}</td>
+            <td>
+                <a href="{% url 'incidencia_personal_update' inc_per.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'incidencia_personal_delete' inc_per.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

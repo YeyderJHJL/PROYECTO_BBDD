@@ -550,8 +550,14 @@ def personal_create(request):
     if request.method == "POST":
         form = PersonalForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('personal_list')
+            try:
+                form.save()
+                messages.success(request, '¡El personal ha sido creado correctamente!')
+                return redirect('personal_list')
+            except ValueError as e:
+                messages.error(request, f'Error al crear: {e}')
+        else:
+            messages.error(request, 'Por favor corrija los errores en el formulario.')
     else:
         form = PersonalForm()
     return render(request, 'personal_form.html', {'form': form})
@@ -562,7 +568,7 @@ def personal_update(request, pk):
         form = PersonalForm(request.POST, instance=personal)
         if form.is_valid():
             form.save()
-            return redirect('personal_list')
+        return redirect('personal_list')            
     else:
         form = PersonalForm(instance=personal)
     return render(request, 'personal_form.html', {'form': form})

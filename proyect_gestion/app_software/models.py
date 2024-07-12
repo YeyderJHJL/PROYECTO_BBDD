@@ -77,7 +77,7 @@ class CargosPersonal(models.Model): # listo
         return self.carpernom
 
 class Personal(models.Model): 
-    percod = models.AutoField(db_column='PerCod', primary_key=True, verbose_name="Código")
+    percod = models.IntegerField(db_column='DNI', primary_key=True, verbose_name="DNI")  
     pernom = models.CharField(db_column='PerNom', max_length=60, verbose_name="Nombre")
     percarcoshor = models.DecimalField(db_column='PerCarCosHor', max_digits=10, decimal_places=2, blank=True, null=True, verbose_name="Costo por Hora")
     perfecing = models.DateField(db_column='PerFecIng', blank=True, null=True, verbose_name="Fecha de Ingreso")

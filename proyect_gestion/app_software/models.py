@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class EstadoRegistro(models.Model): # listo
     estregcod = models.AutoField(db_column='EstRegCod', primary_key=True, verbose_name="Código")
@@ -56,6 +57,11 @@ class Cliente(models.Model):
 
     def __str__(self):
         return f"{self.clinom} (DNI: {self.clidni})"
+    
+    def clean(self):
+        if self.clifecing and self.clifecces:
+            if self.clifecing > self.clifecces:
+                raise ValidationError({'clifecing': 'La fecha de ingreso debe ser anterior a la fecha de cese.'})
 
 class CargosPersonal(models.Model): # listo
     carpercod = models.AutoField(db_column='CarPerCod', primary_key=True, verbose_name="Código")

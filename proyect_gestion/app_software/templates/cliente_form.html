@@ -4,10 +4,27 @@
 <h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Cliente</h2>
 <form method="post" class="form">
     {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
     <div class="form-group">
         {{ form.clidni.label_tag }}
         {{ form.clidni }}
+        {% if form.clidni.errors %}
+            <div class="alert alert-danger">
+                {{ form.clidni.errors }}
+            </div>
+        {% endif %}
     </div>
+
     <div class="form-group">
         {{ form.clinom.label_tag }}
         {{ form.clinom }}
@@ -15,10 +32,20 @@
     <div class="form-group">
         {{ form.clifecing.label_tag }}
         {{ form.clifecing }}
+        {% if form.clifecing.errors %}
+            <div class="alert alert-danger">
+                {{ form.clifecing.errors }}
+            </div>
+        {% endif %}
     </div>
     <div class="form-group">
         {{ form.clifecces.label_tag }}
         {{ form.clifecces }}
+        {% if form.clifecces.errors %}
+            <div class="alert alert-danger">
+                {{ form.clifecces.errors }}
+            </div>
+        {% endif %}
     </div>
     <div class="form-group">
         {{ form.clifecultprocer.label_tag }}

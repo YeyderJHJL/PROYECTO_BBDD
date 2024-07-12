@@ -115,6 +115,13 @@ class ClienteForm(forms.ModelForm):
             'regestcod': forms.Select(attrs={'class': 'form-control'}),
         }
 
+    def clean_clidni(self):
+        clidni = self.cleaned_data['clidni']
+        #Asegurarnos que el DNI no se repita
+        if Cliente.objects.filter(clidni=clidni).exists():
+            raise forms.ValidationError("Error: Este DNI ya está registrado.")
+        return clidni
+
 class ActividadesComplejidadForm(forms.ModelForm):
     class Meta:
         model = ActividadesComplejidad

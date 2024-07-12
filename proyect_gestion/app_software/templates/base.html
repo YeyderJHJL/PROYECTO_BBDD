@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Estado Registro</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             padding-top: 70px;
+            background-color: #EBECF1;
         }
         .navbar-brand {
             font-weight: bold;
             color: #ffffff !important;
         }
         .navbar {
-            background-color: #44c270;
+            background-color: #67B7FE  ;
         }
         .nav-link {
             color: #ffffff !important;
@@ -23,72 +23,53 @@
         .nav-link:hover {
             color: #d4d4d4 !important;
         }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #67B7FE ;
+            color: #ffffff !important;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            outline: none;
+        }
         .container {
             padding-top: 20px;
         }
-        .nav-item {
-            margin-right: 10px;
-
-         /* Estilos para las filas de la tabla según el estado de registro */
         .table-success {
-            background-color: #2bf060; /* Verde para estados activos */
+            background-color:#CEF9D0 ; 
         }
         .table-warning {
-            background-color: #e0ed2d; /* Amarillo para estados inactivos */
+            background-color:#F9F9CE; 
         }
         .table-danger {
-            background-color: #eb5957; /* Rojo para estados eliminados */
+            background-color:#F9CECE; 
         }
+        .custom-card {
+        padding: 40px;
+        text-align: center;
+        border-radius: 10px;
+        background-color: #67B7FE;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
         }
+        .custom-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1); 
+        }
+        .custom-link {
+            text-decoration: none;
+            display: block;
+            outline: none;
+            color: #ffffff !important;
+        }
+        
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'estado_registro_list' %}">Estado Registro</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Clientes
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="clientesDropdown">
-                        <a class="dropdown-item" href="{% url 'cliente_list' %}">Cliente</a>
-                        <a class="dropdown-item" href="{% url 'tipo_cliente_list' %}"> - Tipo Cliente</a>
-                        <a class="dropdown-item" href="{% url 'estado_cliente_list' %}"> - Estado Cliente</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="personalDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Personal
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="clientesDropdown">
-                        <a class="dropdown-item" href="{% url 'personal_list' %}">Personal</a>
-                        <a class="dropdown-item" href="{% url 'cargos_personal_list' %}"> - Cargos Personal</a>
-                    </div>
-                </li>  
-                
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="proyectoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Proyecto
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="clientesDropdown">
-                        <a class="dropdown-item" href="{% url 'proyecto_list' %}">Personal</a>
-                        <a class="dropdown-item" href="{% url 'tipo_proyecto_list' %}"> - Tipo Proyecto</a>
-                        <a class="dropdown-item" href="{% url 'estado_proyecto_list' %}"> - Estado Proyecto</a>
-                        <a class="dropdown-item" href="{% url 'etapas_proyecto_list' %}"> - Etapas Proyecto</a>
-                        <a class="dropdown-item" href="{% url 'cargos_proyecto_list' %}"> - Cargos Proyecto</a>
-                        <a class="dropdown-item" href="{% url 'actividad_list' %}"> - Actividad</a>
-                        <a class="dropdown-item" href="{% url 'complejidad_list' %}"> - Complejidad</a>
-                    </div>
-                </li>  
-            </ul>
-        </div>
-    </nav>
+    <a href="{% url 'index' %}" class="home-button">Home</a>
     <div class="container">
         {% block content %}
         {% endblock %}

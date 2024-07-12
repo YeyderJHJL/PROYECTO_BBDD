@@ -235,16 +235,21 @@ def etapas_proyecto_delete(request, pk):
         etapa.delete()
         return redirect('etapas_proyecto_list')
     return render(request, 'etapas_proyecto_delete.html', {'etapa': etapa})
-
+########################################################################################################
 def actividad_list(request):
     actividades = Actividad.objects.all()
     return render(request, 'actividad_list.html', {'actividades': actividades})
 
 def actividad_create(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ActividadForm(request.POST)
         if form.is_valid():
-            form.save()
+            actividad = form.save()
+            if form.cleaned_data['complejidad']:
+                ActividadesComplejidad.objects.create(actcod=actividad, comcod=form.cleaned_data['complejidad'])
+            for incidencia in form.cleaned_data['incidencias']:
+                incidencia.actcod = actividad
+                incidencia.save()
             return redirect('actividad_list')
     else:
         form = ActividadForm()
@@ -252,10 +257,15 @@ def actividad_create(request):
 
 def actividad_update(request, pk):
     actividad = get_object_or_404(Actividad, pk=pk)
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ActividadForm(request.POST, instance=actividad)
         if form.is_valid():
-            form.save()
+            actividad = form.save()
+            if form.cleaned_data['complejidad']:
+                ActividadesComplejidad.objects.update_or_create(actcod=actividad, defaults={'comcod': form.cleaned_data['complejidad']})
+            for incidencia in form.cleaned_data['incidencias']:
+                incidencia.actcod = actividad
+                incidencia.save()
             return redirect('actividad_list')
     else:
         form = ActividadForm(instance=actividad)
@@ -263,10 +273,23 @@ def actividad_update(request, pk):
 
 def actividad_delete(request, pk):
     actividad = get_object_or_404(Actividad, pk=pk)
-    if request.method == "POST":
+    if request.method == 'POST':
         actividad.delete()
         return redirect('actividad_list')
-    return render(request, 'actividad_delete.html', {'actividad': actividad})
+    return render(request, 'actividad_confirm_delete.html', {'actividad': actividad})
+
+def incidencia_add(request, pk):
+    actividad = get_object_or_404(Actividad, pk=pk)
+    if request.method == 'POST':
+        form = IncidenciasForm(request.POST)
+        if form.is_valid():
+            incidencia = form.save(commit=False)
+            incidencia.actcod = actividad
+            incidencia.save()
+            return redirect('actividad_update', pk=pk)
+    else:
+        form = IncidenciasForm()
+    return render(request, 'incidencia_form.html', {'form': form, 'actividad': actividad})
 
 def complejidad_list(request):
     complejidades = Complejidad.objects.all()
@@ -299,6 +322,7 @@ def complejidad_delete(request, pk):
         complejidad.delete()
         return redirect('complejidad_list')
     return render(request, 'complejidad_delete.html', {'complejidad': complejidad})
+######################################################################################################
 
 def cargosproyecto_list(request):
     cargos_proyecto = CargosProyecto.objects.all()
@@ -409,105 +433,6 @@ def cliente_delete(request, pk):
     else:
         return render(request, 'cliente_delete.html', {'cliente': cliente})
     
-
-def actividades_complejidad_list(request):
-    actividades_complejidad = ActividadesComplejidad.objects.all()
-    return render(request, 'actividades_complejidad_list.html', {'actividades_complejidad': actividades_complejidad})
-
-def actividades_complejidad_create(request):
-    if request.method == "POST":
-        form = ActividadesComplejidadForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('actividades_complejidad_list')
-    else:
-        form = ActividadesComplejidadForm()
-    return render(request, 'actividades_complejidad_form.html', {'form': form})
-
-def actividades_complejidad_update(request, pk):
-    actividad_complejidad = get_object_or_404(ActividadesComplejidad, pk=pk)
-    if request.method == "POST":
-        form = ActividadesComplejidadForm(request.POST, instance=actividad_complejidad)
-        if form.is_valid():
-            form.save()
-            return redirect('actividades_complejidad_list')
-    else:
-        form = ActividadesComplejidadForm(instance=actividad_complejidad)
-    return render(request, 'actividades_complejidad_form.html', {'form': form})
-
-def actividades_complejidad_delete(request, pk):
-    actividad_complejidad = get_object_or_404(ActividadesComplejidad, pk=pk)
-    if request.method == "POST":
-        actividad_complejidad.delete()
-        return redirect('actividades_complejidad_list')
-    return render(request, 'actividades_complejidad_delete.html', {'actividad_complejidad': actividad_complejidad})
-
-# Etapa Actividad
-def etapa_actividad_list(request):
-    etapas_actividad = EtapaActividad.objects.all()
-    return render(request, 'etapa_actividad_list.html', {'etapas_actividad': etapas_actividad})
-
-def etapa_actividad_create(request):
-    if request.method == "POST":
-        form = EtapaActividadForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('etapa_actividad_list')
-    else:
-        form = EtapaActividadForm()
-    return render(request, 'etapa_actividad_form.html', {'form': form})
-
-def etapa_actividad_update(request, pk):
-    etapa_actividad = get_object_or_404(EtapaActividad, pk=pk)
-    if request.method == "POST":
-        form = EtapaActividadForm(request.POST, instance=etapa_actividad)
-        if form.is_valid():
-            form.save()
-            return redirect('etapa_actividad_list')
-    else:
-        form = EtapaActividadForm(instance=etapa_actividad)
-    return render(request, 'etapa_actividad_form.html', {'form': form})
-
-def etapa_actividad_delete(request, pk):
-    etapa_actividad = get_object_or_404(EtapaActividad, pk=pk)
-    if request.method == "POST":
-        etapa_actividad.delete()
-        return redirect('etapa_actividad_list')
-    return render(request, 'etapa_actividad_delete.html', {'etapa_actividad': etapa_actividad})
-
-# Incidencia Personal
-def incidencia_personal_list(request):
-    incidencias_personal = IncidenciaPersonal.objects.all()
-    return render(request, 'incidencia_personal_list.html', {'incidencias_personal': incidencias_personal})
-
-def incidencia_personal_create(request):
-    if request.method == "POST":
-        form = IncidenciaPersonalForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('incidencia_personal_list')
-    else:
-        form = IncidenciaPersonalForm()
-    return render(request, 'incidencia_personal_form.html', {'form': form})
-
-def incidencia_personal_update(request, pk):
-    incidencia_personal = get_object_or_404(IncidenciaPersonal, pk=pk)
-    if request.method == "POST":
-        form = IncidenciaPersonalForm(request.POST, instance=incidencia_personal)
-        if form.is_valid():
-            form.save()
-            return redirect('incidencia_personal_list')
-    else:
-        form = IncidenciaPersonalForm(instance=incidencia_personal)
-    return render(request, 'incidencia_personal_form.html', {'form': form})
-
-def incidencia_personal_delete(request, pk):
-    incidencia_personal = get_object_or_404(IncidenciaPersonal, pk=pk)
-    if request.method == "POST":
-        incidencia_personal.delete()
-        return redirect('incidencia_personal_list')
-    return render(request, 'incidencia_personal_delete.html', {'incidencia_personal': incidencia_personal})
-
 # Incidencias
 def incidencias_list(request):
     incidencias = Incidencias.objects.all()
@@ -573,105 +498,6 @@ def personal_delete(request, pk):
         personal.delete()
         return redirect('personal_list')
     return render(request, 'personal_delete.html', {'personal': personal})
-
-# Personal Actividad
-def personal_actividad_list(request):
-    personal_actividades = PersonalActividad.objects.all()
-    return render(request, 'personal_actividad_list.html', {'personal_actividades': personal_actividades})
-
-def personal_actividad_create(request):
-    if request.method == "POST":
-        form = PersonalActividadForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('personal_actividad_list')
-    else:
-        form = PersonalActividadForm()
-    return render(request, 'personal_actividad_form.html', {'form': form})
-
-def personal_actividad_update(request, pk):
-    personal_actividad = get_object_or_404(PersonalActividad, pk=pk)
-    if request.method == "POST":
-        form = PersonalActividadForm(request.POST, instance=personal_actividad)
-        if form.is_valid():
-            form.save()
-            return redirect('personal_actividad_list')
-    else:
-        form = PersonalActividadForm(instance=personal_actividad)
-    return render(request, 'personal_actividad_form.html', {'form': form})
-
-def personal_actividad_delete(request, pk):
-    personal_actividad = get_object_or_404(PersonalActividad, pk=pk)
-    if request.method == "POST":
-        personal_actividad.delete()
-        return redirect('personal_actividad_list')
-    return render(request, 'personal_actividad_delete.html', {'personal_actividad': personal_actividad})
-
-# Personal Cargos Personal
-def personal_cargos_personal_list(request):
-    personal_cargos = PersonalCargosPersonal.objects.all()
-    return render(request, 'personal_cargos_personal_list.html', {'personal_cargos': personal_cargos})
-
-def personal_cargos_personal_create(request):
-    if request.method == "POST":
-        form = PersonalCargosPersonalForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('personal_cargos_personal_list')
-    else:
-        form = PersonalCargosPersonalForm()
-    return render(request, 'personal_cargos_personal_form.html', {'form': form})
-
-def personal_cargos_personal_update(request, pk):
-    personal_cargo = get_object_or_404(PersonalCargosPersonal, pk=pk)
-    if request.method == "POST":
-        form = PersonalCargosPersonalForm(request.POST, instance=personal_cargo)
-        if form.is_valid():
-            form.save()
-            return redirect('personal_cargos_personal_list')
-    else:
-        form = PersonalCargosPersonalForm(instance=personal_cargo)
-    return render(request, 'personal_cargos_personal_form.html', {'form': form})
-
-def personal_cargos_personal_delete(request, pk):
-    personal_cargo = get_object_or_404(PersonalCargosPersonal, pk=pk)
-    if request.method == "POST":
-        personal_cargo.delete()
-        return redirect('personal_cargos_personal_list')
-    return render(request, 'personal_cargos_personal_delete.html', {'personal_cargo': personal_cargo})
-
-# Personal Cargos Proyecto
-def personal_cargos_proyecto_list(request):
-    personal_cargos_proyecto = PersonalCargosProyecto.objects.all()
-    return render(request, 'personal_cargos_proyecto_list.html', {'personal_cargos_proyecto': personal_cargos_proyecto})
-
-def personal_cargos_proyecto_create(request):
-    if request.method == "POST":
-        form = PersonalCargosProyectoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('personal_cargos_proyecto_list')
-    else:
-        form = PersonalCargosProyectoForm()
-    return render(request, 'personal_cargos_proyecto_form.html', {'form': form})
-
-def personal_cargos_proyecto_update(request, pk):
-    personal_cargo_proyecto = get_object_or_404(PersonalCargosProyecto, pk=pk)
-    if request.method == "POST":
-        form = PersonalCargosProyectoForm(request.POST, instance=personal_cargo_proyecto)
-        if form.is_valid():
-            form.save()
-            return redirect('personal_cargos_proyecto_list')
-    else:
-        form = PersonalCargosProyectoForm(instance=personal_cargo_proyecto)
-    return render(request, 'personal_cargos_proyecto_form.html', {'form': form})
-
-def personal_cargos_proyecto_delete(request, pk):
-    personal_cargo_proyecto = get_object_or_404(PersonalCargosProyecto, pk=pk)
-    if request.method == "POST":
-        personal_cargo_proyecto.delete()
-        return redirect('personal_cargos_proyecto_list')
-    return render(request, 'personal_cargos_proyecto_delete.html', {'personal_cargo_proyecto': personal_cargo_proyecto})
 
 # Proyecto
 def proyecto_list(request):

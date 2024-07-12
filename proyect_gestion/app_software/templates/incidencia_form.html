@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Agregar Incidencia</h2>
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="incnom" class="col-sm-2 control-label">Nombre</label>
+            <div class="col-sm-10">
+                {{ form.incnom }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="incfecini" class="col-sm-2 control-label">Fecha de Inicio</label>
+            <div class="col-sm-10">
+                {{ form.incfecini }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="incfecfin" class="col-sm-2 control-label">Fecha de Fin</label>
+            <div class="col-sm-10">
+                {{ form.incfecfin }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="incdes" class="col-sm-2 control-label">Descripción</label>
+            <div class="col-sm-10">
+                {{ form.incdes }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

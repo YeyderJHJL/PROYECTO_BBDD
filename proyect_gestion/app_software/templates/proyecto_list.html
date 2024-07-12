@@ -1,41 +1,58 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Lista de Proyectos</h2>
-<a href="{% url 'proyecto_create' %}" class="btn btn-primary mb-2">Crear Nuevo Proyecto</a>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Fecha Propuesta Contrato</th>
-            <th>Fecha Propuesta Pactada</th>
-            <th>Fecha Propuesta Inicio</th>
-            <th>Fecha Propuesta Entrega</th>
-            <th>Fecha Propuesta Cierre</th>
-            <th>Monto Propuesto</th>
-            <th>Cliente</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for proyecto in proyectos %}
-        <tr>
-            <td>{{ proyecto.prosec }}</td>
-            <td>{{ proyecto.profecprocon }}</td>
-            <td>{{ proyecto.profecpropac }}</td>
-            <td>{{ proyecto.profecproini }}</td>
-            <td>{{ proyecto.profecproent }}</td>
-            <td>{{ proyecto.profecprocie }}</td>
-            <td>{{ proyecto.promonpro }}</td>
-            <td>{{ proyecto.clicod }}</td>
-            <td>{{ proyecto.proestprocod }}</td>
-            <td>
-                <a href="{% url 'proyecto_update' proyecto.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'proyecto_delete' proyecto.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <h2 class="text-center mb-4">Lista de Proyectos</h2>
+    <a href="{% url 'proyecto_create' %}" class="btn btn-primary mb-2">Crear Nuevo Proyecto</a>
+    <div class="table-wrapper" style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Código</th>
+                <th>Cliente</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Entrega</th>
+                <th>Estado del Proyecto</th>
+                <th>Tipo de Proyecto</th>
+                <th>Etapa del Proyecto</th>
+                <th>Estado de Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in proyectos %}
+            <tr {% if proyecto.estregcod.estregestreg == 'A' %}class="table-success"
+                {% elif proyecto.estregcod.estregestreg == 'I' %}class="table-warning"
+                {% elif proyecto.estregcod.estregestreg == 'E' %}class="table-danger"
+                {% endif %}>
+                <td>{{ proyecto.prosec }}</td>
+                <td>{{ proyecto.clicod }}</td>
+                <td>{{ proyecto.profecproini }}</td>
+                <td>{{ proyecto.profecproent }}</td>
+                <td>{{ proyecto.proestprocod }}</td>
+                <td>{{ proyecto.protipprocod }}</td>
+                <td>{{ proyecto.proetaprocod }}</td>
+                <td>{{ proyecto.estregcod }}</td>
+                <td>
+                    <a href="{% url 'proyecto_update' proyecto.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'proyecto_delete' proyecto.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+        <div class="custom-card" style="padding: 12px;">
+            <a href="{% url 'actividad_list' %}" class="custom-link">
+                <h5>actividades</h5>
+            </a>
+        </div>
+        <div class="custom-card" style="padding: 12px;">
+            <a href="{% url 'estado_registro_list' %}" class="custom-link">
+                <h5>Estado Registro</h5>
+            </a>
+        </div>
+    </div>  
+</div>
 {% endblock %}

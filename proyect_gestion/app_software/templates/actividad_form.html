@@ -1,15 +1,26 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>{% if form.instance.pk %}Editar{% else %}Nueva{% endif %} Actividad</h2>
+<div class="container">
+    <h2 class="text-center mb-4">{% if form.instance.pk %}Editar{% else %}Nueva{% endif %} Actividad</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+            <label for="id_complejidad">Complejidad (Opcional)</label>
+            {{ form.complejidad }}
+        </div>
+        <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
+    </form>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="form-group">
-        <label for="id_complejidad">Complejidad (Opcional)</label>
-        {{ form.complejidad }}
-    </div>
-    <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
-</form>
+    {% if form.instance.pk %}
+        <h3>Incidencias</h3>
+        <ul>
+            {% for incidencia in form.instance.incidencias.all %}
+                <li>{{ incidencia.incnom }} ({{ incidencia.incfecini }} - {{ incidencia.incfecfin }})</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'incidencia_add' form.instance.pk %}" class="btn btn-secondary">Añadir Incidencia</a>
+    {% endif %}
+</div>
 {% endblock %}

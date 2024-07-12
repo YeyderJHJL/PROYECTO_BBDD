@@ -35,14 +35,20 @@ urlpatterns = [
     path('etapas_proyecto/<int:pk>/delete/', views.etapas_proyecto_delete, name='etapas_proyecto_delete'),
 
     path('actividad', views.actividad_list, name='actividad_list'),
-    path('actividad/new/', views.actividad_create, name='actividad_create'),
-    path('actividad/<int:pk>/edit/', views.actividad_update, name='actividad_update'),
-    path('actividad/<int:pk>/delete/', views.actividad_delete, name='actividad_delete'),
+    # path('actividad/new/', views.actividad_create, name='actividad_create'),
+    # path('actividad/<int:pk>/edit/', views.actividad_update, name='actividad_update'),
+    # path('actividad/<int:pk>/delete/', views.actividad_delete, name='actividad_delete'),
 
-    path('complejidad', views.complejidad_list, name='complejidad_list'),
-    path('complejidad/new/', views.complejidad_create, name='complejidad_create'),
-    path('complejidad/<int:pk>/edit/', views.complejidad_update, name='complejidad_update'),
-    path('complejidad/<int:pk>/delete/', views.complejidad_delete, name='complejidad_delete'),
+    path('actividad/new/', views.actividad_create, name='actividad_create'),
+    path('actividad/<int:pk>/update/', views.actividad_update, name='actividad_update'),
+    path('actividad/<int:pk>/delete/', views.actividad_delete, name='actividad_delete'),
+    path('actividad/<int:pk>/incidencia/add/', views.incidencia_add, name='incidencia_add'),
+    path('complejidad/', views.complejidad_list, name='complejidad_list'),
+
+    # path('complejidad', views.complejidad_list, name='complejidad_list'),
+    # path('complejidad/new/', views.complejidad_create, name='complejidad_create'),
+    # path('complejidad/<int:pk>/edit/', views.complejidad_update, name='complejidad_update'),
+    # path('complejidad/<int:pk>/delete/', views.complejidad_delete, name='complejidad_delete'),
 
     path('cargos_proyecto', views.cargosproyecto_list, name='cargos_proyecto_list'),
     path('cargos_proyecto/new/', views.cargosproyecto_create, name='cargos_proyecto_create'),
@@ -59,21 +65,6 @@ urlpatterns = [
     path('cliente/<int:pk>/edit/', views.cliente_update, name='cliente_update'),
     path('cliente/<int:pk>/delete/', views.cliente_delete, name='cliente_delete'),
 
-    path('actividades_complejidad', views.actividades_complejidad_list, name='actividades_complejidad_list'),
-    path('actividades_complejidad/new/', views.actividades_complejidad_create, name='actividades_complejidad_create'),
-    path('actividades_complejidad/<int:pk>/edit/', views.actividades_complejidad_update, name='actividades_complejidad_update'),
-    path('actividades_complejidad/<int:pk>/delete/', views.actividades_complejidad_delete, name='actividades_complejidad_delete'),
-
-    path('etapa_actividad', views.etapa_actividad_list, name='etapa_actividad_list'),
-    path('etapa_actividad/new/', views.etapa_actividad_create, name='etapa_actividad_create'),
-    path('etapa_actividad/<int:pk>/edit/', views.etapa_actividad_update, name='etapa_actividad_update'),
-    path('etapa_actividad/<int:pk>/delete/', views.etapa_actividad_delete, name='etapa_actividad_delete'),
-
-    path('incidencia_personal', views.incidencia_personal_list, name='incidencia_personal_list'),
-    path('incidencia_personal/new/', views.incidencia_personal_create, name='incidencia_personal_create'),
-    path('incidencia_personal/<int:pk>/edit/', views.incidencia_personal_update, name='incidencia_personal_update'),
-    path('incidencia_personal/<int:pk>/delete/', views.incidencia_personal_delete, name='incidencia_personal_delete'),
-
     path('incidencias', views.incidencias_list, name='incidencias_list'),
     path('incidencias/new/', views.incidencias_create, name='incidencias_create'),
     path('incidencias/<int:pk>/edit/', views.incidencias_update, name='incidencias_update'),
@@ -83,21 +74,6 @@ urlpatterns = [
     path('personal/new/', views.personal_create, name='personal_create'),
     path('personal/<int:pk>/edit/', views.personal_update, name='personal_update'),
     path('personal/<int:pk>/delete/', views.personal_delete, name='personal_delete'),
-
-    path('personal_actividad', views.personal_actividad_list, name='personal_actividad_list'),
-    path('personal_actividad/new/', views.personal_actividad_create, name='personal_actividad_create'),
-    path('personal_actividad/<int:pk>/edit/', views.personal_actividad_update, name='personal_actividad_update'),
-    path('personal_actividad/<int:pk>/delete/', views.personal_actividad_delete, name='personal_actividad_delete'),
-
-    path('personal_cargos_personal', views.personal_cargos_personal_list, name='personal_cargos_personal_list'),
-    path('personal_cargos_personal/new/', views.personal_cargos_personal_create, name='personal_cargos_personal_create'),
-    path('personal_cargos_personal/<int:pk>/edit/', views.personal_cargos_personal_update, name='personal_cargos_personal_update'),
-    path('personal_cargos_personal/<int:pk>/delete/', views.personal_cargos_personal_delete, name='personal_cargos_personal_delete'),
-
-    path('personal_cargos_proyecto', views.personal_cargos_proyecto_list, name='personal_cargos_proyecto_list'),
-    path('personal_cargos_proyecto/new/', views.personal_cargos_proyecto_create, name='personal_cargos_proyecto_create'),
-    path('personal_cargos_proyecto/<int:pk>/edit/', views.personal_cargos_proyecto_update, name='personal_cargos_proyecto_update'),
-    path('personal_cargos_proyecto/<int:pk>/delete/', views.personal_cargos_proyecto_delete, name='personal_cargos_proyecto_delete'),
 
     path('proyecto', views.proyecto_list, name='proyecto_list'),
     path('proyecto/new/', views.proyecto_create, name='proyecto_create'),

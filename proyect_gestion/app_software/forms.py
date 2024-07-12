@@ -57,30 +57,49 @@ class EtapasProyectoForm(forms.ModelForm):
             'etaprofecfin': forms.DateTimeInput(attrs={'class': 'form-control'}),
             'estregcod': forms.Select(attrs={'class': 'form-control'}),
         }
+###########################################################################################
 
-class ActividadForm(forms.ModelForm):
+class IncidenciasForm(forms.ModelForm):
     class Meta:
-        model = Actividad
-        fields = ['actnom', 'actfecini', 'actfecfin', 'acttip', 'acthortradia', 'estregcod']
+        model = Incidencias
+        fields = ['incfecini', 'incnom', 'incfecfin', 'incdes']
         widgets = {
-            'actnom': forms.TextInput(attrs={'class': 'form-control'}),
-            'actfecini': forms.DateTimeInput(attrs={'class': 'form-control'}),
-            'actfecfin': forms.DateTimeInput(attrs={'class': 'form-control'}),
-            'acttip': forms.TextInput(attrs={'class': 'form-control'}),
-            'acthortradia': forms.TimeInput(attrs={'class': 'form-control'}),
-            'estregcod': forms.Select(attrs={'class': 'form-control'}),
+            'incfecini': forms.DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+            'incfecfin': forms.DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['incfecini'].input_formats = ['%Y-%m-%dT%H:%M']
+        self.fields['incfecfin'].input_formats = ['%Y-%m-%dT%H:%M']
 
 class ComplejidadForm(forms.ModelForm):
     class Meta:
         model = Complejidad
         fields = ['comnom', 'comgra', 'estregcod']
+
+class ActividadForm(forms.ModelForm):
+    complejidad = forms.ModelChoiceField(queryset=Complejidad.objects.all(), required=False, label="Complejidad")
+    incidencias = forms.ModelMultipleChoiceField(queryset=Incidencias.objects.none(), required=False, label="Incidencias")
+
+    class Meta:
+        model = Actividad
+        fields = ['actnom', 'actfecini', 'actfecfin', 'acttip', 'acthortradia', 'estregcod', 'complejidad', 'incidencias']
         widgets = {
-            'comnom': forms.TextInput(attrs={'class': 'form-control'}),
-            'comgra': forms.NumberInput(attrs={'class': 'form-control'}),
-            'estregcod': forms.Select(attrs={'class': 'form-control'}),
+            'actfecini': forms.DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+            'actfecfin': forms.DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+            'acthortradia': forms.TimeInput(attrs={'type': 'time'}, format='%H:%M'),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['actfecini'].input_formats = ['%Y-%m-%dT%H:%M']
+        self.fields['actfecfin'].input_formats = ['%Y-%m-%dT%H:%M']
+        self.fields['acthortradia'].input_formats = ['%H:%M']
+        if self.instance.pk:
+            self.fields['incidencias'].queryset = Incidencias.objects.filter(actcod=self.instance.pk)
+
+############################################################################################
 class CargosProyectoForm(forms.ModelForm):
     class Meta:
         model = CargosProyecto
@@ -122,46 +141,6 @@ class ClienteForm(forms.ModelForm):
             raise forms.ValidationError("Error: Este DNI ya está registrado.")
         return clidni
 
-class ActividadesComplejidadForm(forms.ModelForm):
-    class Meta:
-        model = ActividadesComplejidad
-        fields = ['actcod', 'comcod']
-        widgets = {
-            'actcod': forms.Select(attrs={'class': 'form-control'}),
-            'comcod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-
-class EtapaActividadForm(forms.ModelForm):
-    class Meta:
-        model = EtapaActividad
-        fields = ['actcod', 'etaprocod']
-        widgets = {
-            'actcod': forms.Select(attrs={'class': 'form-control'}),
-            'etaprocod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-class IncidenciaPersonalForm(forms.ModelForm):
-    class Meta:
-        model = IncidenciaPersonal
-        fields = ['inccod', 'percod']
-        widgets = {
-            'inccod': forms.Select(attrs={'class': 'form-control'}),
-            'percod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-class IncidenciasForm(forms.ModelForm):
-    class Meta:
-        model = Incidencias
-        fields = ['incfecini', 'incnom', 'incfecfin', 'incdes', 'actcod']
-        widgets = {
-            'incfecini': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-            'incnom': forms.TextInput(attrs={'class': 'form-control'}),
-            'incfecfin': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-            'incdes': forms.Textarea(attrs={'class': 'form-control'}),
-            'actcod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
 class PersonalForm(forms.ModelForm):
     class Meta:
         model = Personal
@@ -171,34 +150,6 @@ class PersonalForm(forms.ModelForm):
             'percarcoshor': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'perfecing': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'estregcod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-class PersonalActividadForm(forms.ModelForm):
-    class Meta:
-        model = PersonalActividad
-        fields = ['actcod', 'percod']
-        widgets = {
-            'actcod': forms.Select(attrs={'class': 'form-control'}),
-            'percod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-class PersonalCargosPersonalForm(forms.ModelForm):
-    class Meta:
-        model = PersonalCargosPersonal
-        fields = ['percoshorcar', 'carpercod', 'percod']
-        widgets = {
-            'percoshorcar': forms.NumberInput(attrs={'class': 'form-control'}),
-            'carpercod': forms.Select(attrs={'class': 'form-control'}),
-            'percod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-class PersonalCargosProyectoForm(forms.ModelForm):
-    class Meta:
-        model = PersonalCargosProyecto
-        fields = ['carprocod', 'percod']
-        widgets = {
-            'carprocod': forms.Select(attrs={'class': 'form-control'}),
-            'percod': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class ProyectoForm(forms.ModelForm):
@@ -224,31 +175,4 @@ class ProyectoForm(forms.ModelForm):
             'proestprocod': forms.Select(attrs={'class': 'form-control'}),
             'proetaprocod': forms.Select(attrs={'class': 'form-control'}),
             'protipprocod': forms.Select(attrs={'class': 'form-control'}),
-        }
-
-class ActividadForm(forms.ModelForm):
-    complejidad = forms.ModelChoiceField(queryset=Complejidad.objects.all(), required=False, label="Complejidad")
-
-    class Meta:
-        model = Actividad
-        fields = ['actnom', 'actfecini', 'actfecfin', 'acttip', 'acthortradia', 'estregcod']
-    widgets = {
-        'actnom': forms.TextInput(attrs={'class': 'form-control'}),
-        'actfecini': forms.DateTimeInput(attrs={'class': 'form-control'}),
-        'actfecfin': forms.DateTimeInput(attrs={'class': 'form-control'}),
-        'acttip': forms.TextInput(attrs={'class': 'form-control'}),
-        'acthortradia': forms.TimeInput(attrs={'class': 'form-control'}),
-        'estregcod': forms.Select(attrs={'class': 'form-control'}),
-    }
-
-class ComplejidadForm(forms.ModelForm):
-    actividad = forms.ModelChoiceField(queryset=Actividad.objects.all(), required=False, label="Actividad")
-
-    class Meta:
-        model = Complejidad
-        fields = ['comnom', 'comgra', 'estregcod']
-    widgets = {
-            'comnom': forms.TextInput(attrs={'class': 'form-control'}),
-            'comgra': forms.NumberInput(attrs={'class': 'form-control'}),
-            'estregcod': forms.Select(attrs={'class': 'form-control'}),
         }

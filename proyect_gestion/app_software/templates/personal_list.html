@@ -1,36 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Lista de Personal</h2>
-<a href="{% url 'personal_create' %}" class="btn btn-primary mb-2">Crear Nuevo Personal</a>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Costo por Hora</th>
-            <th>Fecha de Ingreso</th>
-            <th>Estado de Registro</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for persona in personal %}
-        <tr {% if persona.estregcod.estregestreg == 'A' %}class="table-success"
-            {% elif persona.estregcod.estregestreg == 'I' %}class="table-warning"
-            {% elif persona.estregcod.estregestreg == 'E' %}class="table-danger"
-            {% endif %}>
-            <td>{{ persona.percod }}</td>
-            <td>{{ persona.pernom }}</td>
-            <td>{{ persona.percarcoshor }}</td>
-            <td>{{ persona.perfecing }}</td>
-            <td>{{ persona.estregcod }}</td>
-            <td>
-                <a href="{% url 'personal_update' persona.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'personal_delete' persona.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <h2 class="text-center" class="mb-4">Lista de Personal</h2>
+    <a href="{% url 'personal_create' %}" class="btn btn-primary mb-2">Crear Nuevo Personal</a>
+    <div class="table-wrapper" style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Costo por Hora</th>
+                <th>Fecha de Ingreso</th>
+                <th>Estado de Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for persona in personal %}
+            <tr {% if persona.estregcod.estregestreg == 'A' %}class="table-success"
+                {% elif persona.estregcod.estregestreg == 'I' %}class="table-warning"
+                {% elif persona.estregcod.estregestreg == 'E' %}class="table-danger"
+                {% endif %}>
+                <td>{{ persona.percod }}</td>
+                <td>{{ persona.pernom }}</td>
+                <td>{{ persona.percarcoshor }}</td>
+                <td>{{ persona.perfecing }}</td>
+                <td>{{ persona.estregcod }}</td>
+                <td>
+                    <a href="{% url 'personal_update' persona.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'personal_delete' persona.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+        <div class="custom-card" style="padding: 13px;">
+            <a href="{% url 'cargos_personal_list' %}" class="custom-link">
+                <h5>Cargos Personal</h5>
+            </a>
+        </div>
+        <div class="custom-card" style="padding: 13px;">
+            <a href="{% url 'estado_registro_list' %}" class="custom-link">
+                <h5>Estado Registro</h5>
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

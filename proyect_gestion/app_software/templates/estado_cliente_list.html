@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Lista de Estados de Cliente</h2>
+<div class="container">
+    <h2 class="text-center mb-4">Lista de Estados de Cliente</h2>
     <a href="{% url 'estado_cliente_create' %}" class="btn btn-primary mb-2">Crear Nuevo Estado de Cliente</a>
-    <table class="table table-striped">
-        <thead>
+    <div class="table-wrapper" style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
             <tr>
                 <th>Código</th>
                 <th>Nombre</th>
@@ -29,4 +31,6 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
+</div>
 {% endblock %}

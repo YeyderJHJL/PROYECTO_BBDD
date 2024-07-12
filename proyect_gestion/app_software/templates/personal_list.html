@@ -28,8 +28,8 @@
                 <td>{{ persona.perfecing }}</td>
                 <td>{{ persona.estregcod }}</td>
                 <td>
-                    <a href="{% url 'personal_update' persona.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{% url 'personal_delete' persona.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    <a href="{% url 'personal_update' persona.percod %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'personal_delete' persona.percod %}" class="btn btn-danger btn-sm">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}

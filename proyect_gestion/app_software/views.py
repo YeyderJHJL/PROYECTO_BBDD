@@ -721,7 +721,7 @@ def actividad_create(request):
             return redirect('actividad_list')
     else:
         form = ActividadForm()
-    return render(request, 'actividad_form.html', {'form': form})
+    return render(request, 'actividad_form.html', {'form': form})   
 
 def actividad_update(request, pk):
     actividad = get_object_or_404(Actividad, pk=pk)

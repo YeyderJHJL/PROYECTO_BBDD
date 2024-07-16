@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Complejidad</h2>
 <form method="post" class="form">
     {% csrf_token %}
@@ -23,4 +24,5 @@
     <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
     <a href="{% url 'complejidad_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
+</div>
 {% endblock %}

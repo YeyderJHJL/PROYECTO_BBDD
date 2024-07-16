@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h2>Eliminar Tipo de Proyecto</h2>
 <p>¿Estás seguro de que deseas eliminar el tipo de proyecto "{{ tipo }}"?</p>
 <form method="post">
@@ -8,4 +9,5 @@
     <button type="submit" class="btn btn-danger">Eliminar</button>
     <a href="{% url 'tipo_proyecto_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
+</div>
 {% endblock %}

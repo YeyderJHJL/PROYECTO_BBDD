@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Estado de Registro</h2>
 <form method="post" class="form">
     {% csrf_token %}
@@ -15,6 +16,7 @@
     <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
     <a href="{% url 'estado_registro_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
+</div>
 {% endblock %}
 
 

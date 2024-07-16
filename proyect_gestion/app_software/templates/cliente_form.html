@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Cliente</h2>
 <form method="post" class="form">
     {% csrf_token %}
@@ -52,18 +53,19 @@
         {{ form.clifecultprocer }}
     </div>
     <div class="form-group">
-        {{ form.clitipcod.label_tag }}
+        <label for="id_clitipcod">Tipo de Cliente</label>
         {{ form.clitipcod }}
     </div>
     <div class="form-group">
-        {{ form.cliestcod.label_tag }}
-        {{ form.cliestcod }}
+        <label for="id_cliestcod">Estado de Cliente</label>
+        <input type="text" id="id_cliestcod" name="cliestcod" value="A" class="form-control" readonly>
     </div>
     <div class="form-group">
-        {{ form.regestcod.label_tag }}
-        {{ form.regestcod }}
+        <label for="id_regestcod">Estado de Registro</label>
+        <input type="text" id="id_regestcod" name="regestcod" value="A" class="form-control" readonly>
     </div>
     <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
     <a href="{% url 'cliente_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
+</div>
 {% endblock %}

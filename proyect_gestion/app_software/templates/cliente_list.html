@@ -21,6 +21,7 @@
                 </thead>
                 <tbody>
                     {% for cliente in clientes %}
+                        {% if cliente.regestcod.estregestreg == 'A' %}
                         <tr {% if cliente.regestcod.estregestreg == 'A' %}class="table-success"
                         {% elif cliente.regestcod.estregestreg == 'I' %}class="table-warning"
                         {% elif cliente.regestcod.estregestreg == 'E' %}class="table-danger"
@@ -38,26 +39,10 @@
                                 <a href="{% url 'cliente_delete' cliente.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
                             </td>
                         </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-        <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-            <div class="custom-card" style="padding: 12px;">
-                <a href="{% url 'tipo_cliente_list' %}" class="custom-link">
-                    <h5>Tipo Cliente</h5>
-                </a>
-            </div>
-            <div class="custom-card" style="padding: 12px;">
-                <a href="{% url 'estado_cliente_list' %}" class="custom-link">
-                    <h5>Estado Cliente</h5>
-                </a>
-            </div>
-            <div class="custom-card" style="padding: 12px;">
-                <a href="{% url 'estado_registro_list' %}" class="custom-link">
-                    <h5>Estado Registro</h5>
-                </a>
-            </div>
         </div>
     </div>
 {% endblock %}

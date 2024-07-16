@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h2>Lista de Incidencias</h2>
 <a href="{% url 'incidencias_create' %}" class="btn btn-primary mb-2">Crear Nueva Incidencia</a>
 <table class="table table-striped">
@@ -32,4 +33,5 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}

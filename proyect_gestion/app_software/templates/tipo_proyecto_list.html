@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h2>Lista de Tipos de Proyecto</h2>
 <a href="{% url 'tipo_proyecto_create' %}" class="btn btn-primary mb-2">Crear Nuevo Tipo</a>
 <table class="table table-striped">
@@ -26,4 +27,5 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}

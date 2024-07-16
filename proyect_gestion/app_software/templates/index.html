@@ -1,31 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h3 class="text-center">BASE DE DATOS - SQL CARGA</h3>
 <ul>
     <li>Marroquin Pinto Paola Cristina</li>
     <li>Turpo Añasco Jhamil Yeyder</li>
 </ul>
-
+<tr>
 <h4 class="text-center">Caso Estudio 12 - Control de Proyectos de Software</h4>
 
 <p> En la actualidad se tiene el Subsistema de Control de Proyectos de Software del Sistema General de Información que administra el Departamento de Sistemas y Tecnologías de la Información de la Compañia C & A S.A.C. La empresa en la actualidad sólo realiza proyectos de software catalogados como de mediana envergadura. Frente a la realidad la empresa tiene como perspectiva el ampliar sus actividades a otros tipos de proyectos (pequeños y grandes en software) y de otras líneas de proyectos como las de hardware, de telecomunicaciones, de seguridad informática (pequeños, medianos y grandes). En la actualidad se tratan sólo los proyectos de software.</p>
 <br><br>
-<div style="display: flex; justify-content: space-around; margin-top: 20px;">
-    <div class="custom-card">
-        <a href="{% url 'cliente_list' %}" class="custom-link">
-            <h4>Cliente</h4>
-        </a>
-    </div>
-    <div class="custom-card">
-        <a href="{% url 'proyecto_list' %}" class="custom-link">
-            <h4>Proyecto</h4>
-        </a>
-    </div>
-    <div class="custom-card">
-        <a href="{% url 'personal_list' %}" class="custom-link">
-            <h4>Personal</h4>
-        </a>
-    </div>
+
 </div>
 {% endblock %}

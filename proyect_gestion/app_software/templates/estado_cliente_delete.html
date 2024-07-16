@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container"> 
 <h2>Eliminar Estado de Cliente</h2>
 <p>¿Estás seguro de que deseas eliminar el estado de cliente "{{ estado }}"?</p>
 
@@ -31,4 +32,5 @@
     <button type="submit" class="btn btn-danger">Eliminar</button>
     <a href="{% url 'estado_cliente_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>
+</div>
 {% endblock %}

@@ -1,59 +1,48 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="container">
-    <h2 class="text-center mb-4">Lista de Actividades</h2>
-    <a href="{% url 'actividad_create' %}" class="btn btn-primary mb-2">Crear Nueva Actividad</a>
-    <div class="table-wrapper" style="max-height: 400px; overflow-y: auto;">
-    <table class="table table-bordered table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Fecha de Inicio</th>
-                <th>Fecha de Fin</th>
-                <th>Tipo</th>
-                <th>Horas de Trabajo Diarias</th>
-                <th>Estado de Registro</th>
-                <th>Complejidad</th>
-                <th>Incidencias</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for actividad in actividades %}
-                <tr>
-                    <td>{{ actividad.actcod }}</td>
-                    <td>{{ actividad.actnom }}</td>
-                    <td>{{ actividad.actfecini }}</td>
-                    <td>{{ actividad.actfecfin }}</td>
-                    <td>{{ actividad.acttip }}</td>
-                    <td>{{ actividad.acthortradia }}</td>
-                    <td>{{ actividad.estregcod.estregestreg }}</td>
-                    <td>
-                        {% if actividad.actividadescomplejidad_set.first %}
-                            {{ actividad.actividadescomplejidad_set.first.comcod.comnom }}
-                        {% else %}
-                            No asignado
-                        {% endif %}
-                    </td>
-                    <td>
-                        <ul>
-                            {% for incidencia in actividad.incidencias_set.all %}
-                                <li>{{ incidencia.incnom }} - {{ incidencia.incfecini }} - {{ incidencia.incfecfin }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td>
-                        <a href="{% url 'actividad_update' actividad.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="{% url 'actividad_delete' actividad.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
-                        <a href="{% url 'incidencia_add' actividad.pk %}" class="btn btn-secondary btn-sm">Agregar Incidencia</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="container-fluid">
+    <div class="row">
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Actividades</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="{% url 'etapas_proyecto_list' %}" class="btn btn-sm btn-outline-secondary">
+                        <span data-feather="plus-circle"></span>
+                        regresar
+                    </a>
+                    <a href="{% url 'actividad_create' %}" class="btn btn-sm btn-outline-secondary">
+                        <span data-feather="plus-circle"></span>
+                        Nueva Actividad
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for actividad in actividades %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ actividad.actnom }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Código: {{ actividad.actcod }}</h6>
+                            <p class="card-text">
+                                <strong>Tipo:</strong> {{ actividad.acttip }}<br>
+                                <strong>Inicio:</strong> {{ actividad.actfecini|date:"d/m/Y" }}<br>
+                                <strong>Fin:</strong> {{ actividad.actfecfin|date:"d/m/Y" }}<br>
+                                <strong>Estado:</strong> {{ actividad.estregcod.estregestreg }}
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="{% url 'actividad_detail' actividad.pk %}" class="btn btn-primary btn-sm w-100">
+                                Ver detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
     </div>
 </div>
 {% endblock %}
-

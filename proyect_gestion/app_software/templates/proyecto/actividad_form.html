@@ -6,13 +6,10 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <div class="form-group">
-            <label for="id_complejidad">Complejidad (Opcional)</label>
-            {{ form.complejidad }}
-        </div>
         <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
+        <a href="{% url 'actividad_list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
-
+    
     {% if form.instance.pk %}
         <h3>Incidencias</h3>
         <ul>

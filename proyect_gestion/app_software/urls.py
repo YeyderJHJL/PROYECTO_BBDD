@@ -44,7 +44,8 @@ urlpatterns += [
 # ACTIVIDAD
 
 urlpatterns += [
-    path('actividad', views.actividad_list, name='actividad_list'),
+    path('actividades', views.actividad_list, name='actividad_list'),
+    path('actividad/<int:pk>/', views.actividad_detail, name='actividad_detail'),
     path('actividad/new/', views.actividad_create, name='actividad_create'),
     path('actividad/<int:pk>/update/', views.actividad_update, name='actividad_update'),
     path('actividad/<int:pk>/delete/', views.actividad_delete, name='actividad_delete'),
@@ -55,10 +56,10 @@ urlpatterns += [
     path('complejidades/<int:pk>/edit/', views.complejidad_update, name='complejidad_update'),
     path('complejidades/<int:pk>/delete/', views.complejidad_delete, name='complejidad_delete'),
 
-    path('incidencias', views.incidencias_list, name='incidencias_list'),
-    path('incidencias/new/', views.incidencias_create, name='incidencias_create'),
-    path('incidencias/<int:pk>/edit/', views.incidencias_update, name='incidencias_update'),
-    path('incidencias/<int:pk>/delete/', views.incidencias_delete, name='incidencias_delete'),
+    path('incidencias', views.incidencias_list, name='incidencia_list'),
+    path('incidencias/new/', views.incidencias_create, name='incidencia_create'),
+    path('incidencias/<int:pk>/edit/', views.incidencias_update, name='incidencia_update'),
+    path('incidencias/<int:pk>/delete/', views.incidencias_delete, name='incidencia_delete'),
 ]
 
 # PERSONAL

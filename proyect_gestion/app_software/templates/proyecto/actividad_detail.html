@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Detalles de Actividad: {{ actividad.actnom }}</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="{% url 'actividad_list' %}" class="btn btn-sm btn-outline-secondary">
+                        <span data-feather="plus-circle"></span>
+                        regresar
+                    </a>
+                    <a href="{% url 'actividad_update' actividad.pk %}" class="btn btn-primary btn-sm me-2">Editar Actividad</a>
+                    <a href="{% url 'actividad_delete' actividad.pk %}" class="btn btn-danger btn-sm me-2">Eliminar Actividad</a>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Información General</h5>
+                    <p>
+                        <strong>Código:</strong> {{ actividad.actcod }}<br>
+                        <strong>Tipo:</strong> {{ actividad.acttip }}<br>
+                        <strong>Inicio:</strong> {{ actividad.actfecini|date:"d/m/Y" }}<br>
+                        <strong>Fin:</strong> {{ actividad.actfecfin|date:"d/m/Y" }}<br>
+                        <strong>Horas de trabajo diarias:</strong> {{ actividad.acthortradia }}<br>
+                        <strong>Estado:</strong> {{ actividad.estregcod.estregestreg }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">Complejidad</h5>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarComplejidadModal">Actualizar Complejidad</button>
+                    </div>
+                    <p>
+                        {% if actividad.actividadescomplejidad_set.first %}
+                            {{ actividad.actividadescomplejidad_set.first.comcod.comnom }}
+                        {% else %}
+                            No asignado
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">Incidencias</h5>
+                        <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#agregarIncidenciaModal">Agregar Incidencia</button>
+                    </div>
+                    <ul class="list-group">
+                        {% for incidencia in actividad.incidencias_set.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ incidencia.incnom }} - {{ incidencia.incfecini|date:"d/m/Y" }} a {{ incidencia.incfecfin|date:"d/m/Y" }}
+                                <div>
+                                    <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarIncidenciaModal{{ incidencia.pk }}">Editar</button>
+                                    <a href="{% url 'incidencia_delete' incidencia.pk %}" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                                </div>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No hay incidencias registradas</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">Personal Involucrado</h5>
+                        <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#agregarPersonalModal">Agregar Personal</button>
+                    </div>
+                    <ul class="list-group">
+                        {% for personal in actividad.personal_set.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ personal.pername }} - {{ personal.percargo }}
+                                <div>
+                                    <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarPersonalModal{{ personal.pk }}">Editar</button>
+                                    <a href="{% url 'personal_delete' personal.pk %}" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                                </div>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No hay personal asignado</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Modales para editar/agregar -->
+<!-- Modal Editar Actividad -->
+<div class="modal fade" id="editarActividadModal" tabindex="-1" aria-labelledby="editarActividadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarActividadModalLabel">Editar Actividad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para editar actividad -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Actualizar Complejidad -->
+<div class="modal fade" id="editarComplejidadModal" tabindex="-1" aria-labelledby="editarComplejidadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarComplejidadModalLabel">Actualizar Complejidad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para actualizar complejidad -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar Incidencia -->
+<div class="modal fade" id="agregarIncidenciaModal" tabindex="-1" aria-labelledby="agregarIncidenciaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarIncidenciaModalLabel">Agregar Incidencia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para agregar incidencia -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modales para editar incidencias (uno por cada incidencia) -->
+{% for incidencia in actividad.incidencias_set.all %}
+<div class="modal fade" id="editarIncidenciaModal{{ incidencia.pk }}" tabindex="-1" aria-labelledby="editarIncidenciaModalLabel{{ incidencia.pk }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarIncidenciaModalLabel{{ incidencia.pk }}">Editar Incidencia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para editar incidencia -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Modal Agregar Personal -->
+<div class="modal fade" id="agregarPersonalModal" tabindex="-1" aria-labelledby="agregarPersonalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarPersonalModalLabel">Agregar Personal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para agregar personal -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modales para editar personal (uno por cada personal) -->
+{% for personal in actividad.personal_set.all %}
+<div class="modal fade" id="editarPersonalModal{{ personal.pk }}" tabindex="-1" aria-labelledby="editarPersonalModalLabel{{ personal.pk }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarPersonalModalLabel{{ personal.pk }}">Editar Personal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para editar personal -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

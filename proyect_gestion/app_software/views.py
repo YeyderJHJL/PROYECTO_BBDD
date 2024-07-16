@@ -216,6 +216,7 @@ def cargosproyecto_delete(request, pk):
         cargo_proyecto.delete()
         return redirect('cargos_proyecto_list')
     return render(request, 'proyecto/cargos_proyecto_delete.html', {'cargo_proyecto': cargo_proyecto})
+# ETAPAS ####################################################################################
 
 # ACTIVIDAD ####################################################################################
 
@@ -223,6 +224,10 @@ def actividad_list(request):
     actividades = Actividad.objects.all()
     complejidades = Complejidad.objects.all()
     return render(request, 'proyecto/actividad_list.html', {'actividades': actividades, 'complejidades': complejidades})
+
+def actividad_detail(request, pk):
+    actividad = get_object_or_404(Actividad, pk=pk)
+    return render(request, 'proyecto/actividad_detail.html', {'actividad': actividad})
 
 def actividad_create(request):# falta
     if request.method == 'POST':
@@ -263,7 +268,7 @@ def actividad_update(request, pk):
             for incidencia in form.cleaned_data['incidencias']:
                 incidencia.actcod = actividad
                 incidencia.save()
-            return redirect('actividad_list')
+            return redirect('actividad_detail', pk=pk)
     else:
         form = ActividadForm(instance=actividad)
     return render(request, 'proyecto/actividad_form.html', {'form': form})

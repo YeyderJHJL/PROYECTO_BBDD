@@ -136,6 +136,12 @@ class ClienteForm(forms.ModelForm):
 
     def clean_clidni(self):
         clidni = self.cleaned_data['clidni']
+        #Asegurarnos que el DNI no se repita
+        if Cliente.objects.filter(clidni=clidni).exists():
+            raise forms.ValidationError(" Error: Este DNI ya está registrado.")
+        return clidni
+    def clean_clidni(self):
+        clidni = self.cleaned_data['clidni']
         if self.instance.pk is None:  # Creando un nuevo cliente
             # Validar que el DNI no esté duplicado al crear
             if Cliente.objects.filter(clidni=clidni).exists():
@@ -153,10 +159,13 @@ class PersonalForm(forms.ModelForm):
             'perfecing': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'estregcod': forms.Select(attrs={'class': 'form-control'}),
         }
-    def clean_perdni(self):
+    def clean_percod(self):
         percod = self.cleaned_data['percod']
+        if self.instance.pk:  # Si es una instancia existente (edición), no validar el DNI
+            return percod
+        # Validar que no exista otro registro con el mismo DNI
         if Personal.objects.filter(percod=percod).exists():
-            raise forms.ValidationError(" Error: Este DNI ya está registrado.")
+            raise forms.ValidationError("Ya existe un personal con este DNI.")
         return percod
 
 class ProyectoForm(forms.ModelForm):

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Estados de Proyecto</h2>
+<a href="{% url 'estado_proyecto_create' %}" class="btn btn-primary mb-2">Crear Nuevo Estado de Proyecto</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Estado de Registro</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for estado_proyecto in estados_proyecto %}
+        <tr>
+            <td>{{ estado_proyecto.estprocod }}</td>
+            <td>{{ estado_proyecto.estpronom }}</td>
+            <td>{{ estado_proyecto.estregcod }}</td>
+            <td>
+                <a href="{% url 'estado_proyecto_update' estado_proyecto.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'estado_proyecto_delete' estado_proyecto.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

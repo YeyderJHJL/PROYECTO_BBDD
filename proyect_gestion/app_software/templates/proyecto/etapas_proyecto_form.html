@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Etapa de Proyecto</h2>
+<form method="post" class="form">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.etapronom.label_tag }}
+        {{ form.etapronom }}
+    </div>
+    <div class="form-group">
+        {{ form.etaprofecreg.label_tag }}
+        {{ form.etaprofecreg }}
+    </div>
+    <div class="form-group">
+        {{ form.etaprofecini.label_tag }}
+        {{ form.etaprofecini }}
+    </div>
+    <div class="form-group">
+        {{ form.etaprofecfin.label_tag }}
+        {{ form.etaprofecfin }}
+    </div>
+    <div class="form-group">
+        {{ form.estregcod.label_tag }}
+        {{ form.estregcod }}
+    </div>
+    <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
+    <a href="{% url 'etapas_proyecto_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

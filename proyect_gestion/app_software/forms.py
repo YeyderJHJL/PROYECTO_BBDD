@@ -190,3 +190,55 @@ class ClienteForm(forms.ModelForm):
         if Cliente.objects.filter(clidni=clidni).exists():
             raise forms.ValidationError(" Error: Este DNI ya está registrado.")
         return clidni
+    def clean_clidni(self):
+        clidni = self.cleaned_data['clidni']
+        if self.instance.pk is None:  # Creando un nuevo cliente
+            # Validar que el DNI no esté duplicado al crear
+            if Cliente.objects.filter(clidni=clidni).exists():
+                raise forms.ValidationError("Este DNI ya está registrado. Ingrese un DNI válido.")
+        return clidni
+
+class PersonalForm(forms.ModelForm):
+    class Meta:
+        model = Personal
+        fields = ['percod', 'pernom', 'percarcoshor', 'perfecing', 'estregcod'] 
+        widgets = {
+            'percod': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'DNI'}),  
+            'pernom': forms.TextInput(attrs={'class': 'form-control'}),
+            'percarcoshor': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'perfecing': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'estregcod': forms.Select(attrs={'class': 'form-control'}),
+        }
+    def clean_percod(self):
+        percod = self.cleaned_data['percod']
+        if self.instance.pk:  # Si es una instancia existente (edición), no validar el DNI
+            return percod
+        # Validar que no exista otro registro con el mismo DNI
+        if Personal.objects.filter(percod=percod).exists():
+            raise forms.ValidationError("Ya existe un personal con este DNI.")
+        return percod
+
+class ProyectoForm(forms.ModelForm):
+    class Meta:
+        model = Proyecto
+        fields = ['profecprocon', 'profecpropac', 'profecproini', 'profecproent', 'profecprocie', 'promonpro', 'promonprorea', 'promonprocos', 'promonprocosrea', 'promonprogas', 'promonprogasrea', 'promonprouti', 'promonproutirea', 'clicod', 'estregcod', 'proestprocod', 'proetaprocod', 'protipprocod']
+        widgets = {
+            'profecprocon': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecpropac': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecproini': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecproent': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'profecprocie': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'promonpro': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprorea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprocos': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprocosrea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprogas': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprogasrea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonprouti': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'promonproutirea': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'clicod': forms.Select(attrs={'class': 'form-control'}),
+            'estregcod': forms.Select(attrs={'class': 'form-control'}),
+            'proestprocod': forms.Select(attrs={'class': 'form-control'}),
+            'proetaprocod': forms.Select(attrs={'class': 'form-control'}),
+            'protipprocod': forms.Select(attrs={'class': 'form-control'}),
+        }

@@ -29,18 +29,32 @@
         {{ form.pernom.label_tag }}
         {{ form.pernom }}
     </div>
+    
     <div class="form-group">
         {{ form.percarcoshor.label_tag }}
         {{ form.percarcoshor }}
     </div>
+    
     <div class="form-group">
         {{ form.perfecing.label_tag }}
         {{ form.perfecing }}
+        {% if form.perfecing.errors %}
+            <div class="alert alert-danger">
+                {{ form.perfecing.errors }}
+            </div>
+        {% endif %}
     </div>
+    
     <div class="form-group">
-        {{ form.estregcod.label_tag }}
-        {{ form.estregcod }}
+        {% if form.instance.pk %}
+            {{ form.estregcod.label_tag }}
+            {{ form.estregcod }}
+        {% else %}
+            <label for="id_estregcod">Estado de Registro</label>
+            <input type="text" id="id_estregcod" name="estregcod" value="A" class="form-control" readonly>
+        {% endif %}
     </div>
+
     <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
     <a href="{% url 'personal_list' %}" class="btn btn-secondary">Cancelar</a>
 </form>

@@ -7,54 +7,46 @@ body {
     color: #ffffff !important;
 }
 .navbar {
-    background-color: #67B7FE  ;
+    background-color: rgba(200, 243, 241, 0.882); 
+    height: 100vh; 
+    position: fixed; 
+    left: 0; 
+    top: 0; 
+    width: 250px; 
+    padding: 20px; 
 }
 .nav-link {
     color: #ffffff !important;
     font-size: 1.1rem;
+    padding: 10px 20px; 
+    display: block; 
+    text-align: left;
 }
 .nav-link:hover {
-    color: #d4d4d4 !important;
-}
-.home-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: #67B7FE ;
+    background-color: rgba(154, 154, 154, 0.882); 
     color: #ffffff !important;
-    padding: 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    outline: none;
+    text-decoration: none; 
+}
+.dropdown-menu {
+    background-color: #EBECF1; 
+}
+.dropdown-item {
+    color: #ffffff !important;
 }
 .container {
+    margin-left: 150px; 
     padding-top: 20px;
+    position: relative;
 }
 .table-success {
-    background-color:#7dff78; 
+    background-color: #7dff78;
 }
 .table-warning {
-    background-color:#faff71; 
+    background-color: #faff71;
 }
 .table-danger {
-    background-color:#ff8181 ; 
+    background-color: #ff8181;
 }
-.custom-card {
-padding: 40px;
-text-align: center;
-border-radius: 10px;
-background-color: #67B7FE;
-transition: box-shadow 0.3s ease, transform 0.3s ease;
-overflow: hidden;
-}
-.custom-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1); 
-}
-.custom-link {
-    text-decoration: none;
-    display: block;
-    outline: none;
-    color: #ffffff !important;
+.navbar-nav {
+    width: 100%;
 }

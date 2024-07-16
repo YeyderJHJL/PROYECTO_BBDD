@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Complejidad</h2>
-<form method="post" class="form">
-    {% csrf_token %}
-    <div class="form-group">
-        {{ form.comnom.label_tag }}
-        {{ form.comnom }}
-    </div>
-    <div class="form-group">
-        {{ form.comgra.label_tag }}
-        {{ form.comgra }}
-    </div>
-    <div class="form-group">
-        {{ form.estregcod.label_tag }}
-        {{ form.estregcod }}
-    </div>
-    <div class="form-group">
-        <label for="id_actividad">Actividad (Opcional)</label>
-        {{ form.actividad }}
-    </div>
-    <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
-    <a href="{% url 'complejidad_list' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+<div class="container">
+    <h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Complejidad</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.comnom.label_tag }}
+            {{ form.comnom }}
+        </div>
+        <div class="form-group">
+            {{ form.comgra.label_tag }}
+            {{ form.comgra }}
+        </div>
+        <div class="form-group">
+            {{ form.estregcod.label_tag }}
+            {{ form.estregcod }}
+        </div>
+        <div class="form-group">
+            <label for="id_actividad">Actividad (Opcional)</label>
+            {{ form.actividad }}
+        </div>
+        <button type="submit" class="btn btn-success">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
+        <a href="{% url 'complejidad_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

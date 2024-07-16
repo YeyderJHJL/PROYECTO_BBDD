@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Eliminar Complejidad</h2>
-<p>¿Estás seguro de que deseas eliminar la complejidad "{{ complejidad }}"?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a href="{% url 'complejidad_list' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+<div class="container">
+    <h2>Eliminar Complejidad</h2>
+    <p>¿Estás seguro de que deseas eliminar la complejidad "{{ complejidad }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'complejidad_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

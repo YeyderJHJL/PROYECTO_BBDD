@@ -1,31 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Lista de Cargos de Proyecto</h2>
-<a href="{% url 'cargos_proyecto_create' %}" class="btn btn-primary mb-2">Crear Nuevo Cargo</a>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Proyecto</th>
-            <th>Estado de Registro</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for cargo_proyecto in cargos_proyecto %}
-        <tr>
-            <td>{{ cargo_proyecto.carprocod }}</td>
-            <td>{{ cargo_proyecto.carpronom }}</td>
-            <td>{{ cargo_proyecto.prosec }}</td>
-            <td>{{ cargo_proyecto.estregcod }}</td>
-            <td>
-                <a href="{% url 'cargos_proyecto_update' cargo_proyecto.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'cargosp_royecto_delete' cargo_proyecto.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <h2>Lista de Cargos de Proyecto</h2>
+    <a href="{% url 'cargos_proyecto_create' %}" class="btn btn-primary mb-2">Crear Nuevo Cargo</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Proyecto</th>
+                <th>Estado de Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cargo_proyecto in cargos_proyecto %}
+            <tr>
+                <td>{{ cargo_proyecto.carprocod }}</td>
+                <td>{{ cargo_proyecto.carpronom }}</td>
+                <td>{{ cargo_proyecto.prosec }}</td>
+                <td>{{ cargo_proyecto.estregcod }}</td>
+                <td>
+                    <a href="{% url 'cargos_proyecto_update' cargo_proyecto.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'cargosp_royecto_delete' cargo_proyecto.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

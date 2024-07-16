@@ -136,9 +136,10 @@ class ClienteForm(forms.ModelForm):
 
     def clean_clidni(self):
         clidni = self.cleaned_data['clidni']
-        #Asegurarnos que el DNI no se repita
-        if Cliente.objects.filter(clidni=clidni).exists():
-            raise forms.ValidationError(" Error: Este DNI ya está registrado.")
+        if self.instance.pk is None:  # Creando un nuevo cliente
+            # Validar que el DNI no esté duplicado al crear
+            if Cliente.objects.filter(clidni=clidni).exists():
+                raise forms.ValidationError("Este DNI ya está registrado. Ingrese un DNI válido.")
         return clidni
 
 class PersonalForm(forms.ModelForm):
